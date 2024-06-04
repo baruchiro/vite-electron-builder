@@ -70,7 +70,7 @@ app
  *
  * Note: It may throw "ENOENT: no such file app-update.yml"
  * if you compile production app without publishing it to distribution server.
- * Like `npm run compile` does. It's ok 😅
+ * Like `yarn compile` does. It's ok 😅
  */
 if (import.meta.env.PROD) {
   app

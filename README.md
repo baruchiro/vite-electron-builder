@@ -249,7 +249,7 @@ that need to be loaded.
 By default, there are two modes:
 
 - `production` is used by default
-- `development` is used by `npm run watch` script
+- `development` is used by `yarn watch` script
 
 When running the build script, the environment variables are loaded from the following files in your project root:
 
