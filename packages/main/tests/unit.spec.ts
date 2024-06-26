@@ -1,4 +1,4 @@
-import type {MockedClass, MockedObject} from 'vitest';
+import {type MockedClass, type MockedObject} from 'vitest';
 import {beforeEach, expect, test, vi} from 'vitest';
 import {restoreOrCreateWindow} from '../src/mainWindow';
 

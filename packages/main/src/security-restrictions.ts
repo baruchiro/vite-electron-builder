@@ -1,4 +1,4 @@
-import type {Session} from 'electron';
+import {type Session} from 'electron';
 import {app, shell} from 'electron';
 import {URL} from 'node:url';
 

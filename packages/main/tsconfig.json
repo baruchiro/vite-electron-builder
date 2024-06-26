@@ -11,8 +11,10 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "/@/*": ["./src/*"]
-    }
+      "/@/*": ["./src/*"],
+      "@/*": ["./src/*"]
+    },
+    "resolveJsonModule": true,
   },
   "include": ["src/**/*.ts", "../../types/**/*.d.ts"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"]

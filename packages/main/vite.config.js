@@ -15,6 +15,7 @@ const config = {
   resolve: {
     alias: {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',
+      '@/': join(PACKAGE_ROOT, 'src') + '/',
     },
   },
   build: {

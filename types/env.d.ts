@@ -18,6 +18,17 @@ interface ImportMetaEnv {
 
   /** Current app version */
   readonly VITE_APP_VERSION: string;
+  readonly VITE_APP_NAME: string;
+
+  readonly SENTRY_DSN: string;
+
+  readonly GOOGLE_CLIENT_ID: string;
+  readonly GOOGLE_CLIENT_SECRET: string;
+
+  readonly SEGMENT_WRITE_KEY: string;
+
+  readonly SOURCE_COMMIT_SHORT: string;
+  readonly DISCORD_CHANNEL: string;
 }
 
 interface ImportMeta {
