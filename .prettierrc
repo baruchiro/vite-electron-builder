@@ -17,6 +17,6 @@
   "htmlWhitespaceSensitivity": "strict",
   "vueIndentScriptAndStyle": false,
   "endOfLine": "lf",
-  "singleAttributePerLine": true,
+  "singleAttributePerLine": false,
   "plugins": ["prettier-plugin-organize-imports"]
 }
