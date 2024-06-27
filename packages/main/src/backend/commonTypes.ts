@@ -8,7 +8,7 @@ export type { ScraperScrapingResult } from 'israeli-bank-scrapers-core';
 export type {
   Credentials,
   OAuth2Client,
-  Spreadsheet
+  Spreadsheet,
 } from './export/outputVendors/googleSheets/googleSheetsInternalAPI';
 export interface Config {
   outputVendors: {
