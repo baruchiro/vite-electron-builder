@@ -2,9 +2,6 @@
 import { action, makeAutoObservable } from 'mobx';
 import { createContext } from 'react';
 import {
-  updateConfig, getYnabAccountData, openItem, openExternal,
-} from './eventsBridge';
-import {
   type Account,
   AccountStatus,
   type AccountToScrapeConfig,
@@ -19,6 +16,7 @@ import {
 } from './types';
 import accountMetadata, { exporterUIHandlers } from './accountMetadata';
 import { type YnabAccountDataType, type YnabConfig } from '../../src/backend/commonTypes';
+import { openExternal, openItem, updateConfig } from '#preload';
 
 export default class Store {
   config?: Config;

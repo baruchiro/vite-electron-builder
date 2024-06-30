@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import NavBar from 'react-bootstrap/Navbar';
 import { Container, Stack } from 'react-bootstrap';
 import logo from '../../assets/logoFishOnly.svg';
-import { openExternal } from '../../eventsBridge';
+import { openExternal } from '#preload';
 
 import NavButton from './NavButton';
 import styles from './TopBar.module.css';

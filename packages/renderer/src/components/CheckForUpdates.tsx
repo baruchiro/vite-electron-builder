@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 import { StoreContext } from '../Store';
-import { checkForUpdate, downloadUpdate, openExternal, quitAndInstall } from '../eventsBridge';
+import { checkForUpdate, downloadUpdate, openExternal } from '#preload';
 
 const UPDATE_STATES = {
   INIT: 'INIT',

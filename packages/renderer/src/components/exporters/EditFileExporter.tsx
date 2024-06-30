@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import {
   Button, Card, Form, Image,
 } from 'react-bootstrap';
-import { showSaveDialog } from '../../eventsBridge';
+import { showSaveDialog } from '#preload';
 import { type Exporter } from '../../types';
 import styles from './EditFileExporter.module.css';
 

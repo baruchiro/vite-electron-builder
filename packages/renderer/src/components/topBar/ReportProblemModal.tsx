@@ -5,7 +5,7 @@ import {
   getLogsInfo,
   openExternal,
   sentryUserReportProblem,
-} from '../../eventsBridge';
+} from '#preload';
 import LogsCanvas from './LogsCanvas';
 import { isValidEmail } from '../../utils/validations';
 import { getZIndexes } from '../../utils/zIndexesManager';

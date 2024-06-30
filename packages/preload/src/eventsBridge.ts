@@ -1,13 +1,12 @@
+import electron from 'electron';
 import {
   type Credentials,
   type FinancialAccountDetails,
+  type HandleScrapingEvent,
   type YnabAccountDetails,
-} from '../../src/backend/commonTypes';
-import { type Config, type YnabConfig } from './types';
-
-const electron = window.require('electron');
-
-let progressListenerDefined = false;
+  type Config,
+  type YnabConfig,
+} from './commonTypes';
 
 export async function getConfig(): Promise<Config> {
   const configStr = await electron.ipcRenderer.invoke('getConfig');
@@ -19,23 +18,23 @@ export async function updateConfig(config: Config) {
   await electron.ipcRenderer.invoke('updateConfig', JSON.stringify(config));
 }
 
-export async function getYnabAccountData(
-  ynabOptions: YnabConfig['options'],
-): Promise<{
+export async function getYnabAccountData(ynabOptions: YnabConfig['options']): Promise<{
   ynabAccountData: YnabAccountDetails;
   financialAccountDetails: FinancialAccountDetails[];
 }> {
   return electron.ipcRenderer.invoke('getYnabAccountData', ynabOptions);
 }
 
-export async function scrape(store) {
+let progressListenerDefined = false;
+
+export async function scrape(handleScrapingEvent: HandleScrapingEvent) {
   await electron.ipcRenderer.send('scrape');
   if (!progressListenerDefined) {
     electron.ipcRenderer.on('scrapingProgress', (_, progressEventStr) => {
       const progressEvent = JSON.parse(progressEventStr);
       const { eventName } = progressEvent;
       const { eventData } = progressEvent;
-      store.handleScrapingEvent(eventName, eventData);
+      handleScrapingEvent(eventName, eventData);
     });
     progressListenerDefined = true;
   }
@@ -57,7 +56,7 @@ export async function getLogsInfo(numOfLastLines: number) {
   return electron.ipcRenderer.invoke('getLogsInfo', numOfLastLines);
 }
 
-export async function sentryUserReportProblem(reportProblem) {
+export async function sentryUserReportProblem(reportProblem: object) {
   return electron.ipcRenderer.invoke('sentryUserReportProblem', reportProblem);
 }
 
@@ -82,9 +81,7 @@ export async function quitAndInstall() {
 }
 
 // Google Sheets
-export async function validateToken(
-  credentials: Credentials,
-): Promise<boolean> {
+export async function validateToken(credentials: Credentials): Promise<boolean> {
   return electron.ipcRenderer.invoke('validateToken', credentials);
 }
 export async function getAllUserSpreadsheets(credentials: Credentials) {
@@ -97,9 +94,5 @@ export async function createSpreadsheet(
   spreadsheetId: string,
   credentials: Credentials,
 ): Promise<string> {
-  return electron.ipcRenderer.invoke(
-    'createSpreadsheet',
-    spreadsheetId,
-    credentials,
-  );
+  return electron.ipcRenderer.invoke('createSpreadsheet', spreadsheetId, credentials);
 }

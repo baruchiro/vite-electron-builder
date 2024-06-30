@@ -8,7 +8,7 @@ import {
   createSpreadsheet,
   getAllUserSpreadsheets,
   validateToken,
-} from '../../../eventsBridge';
+} from '#preload';
 
 export enum Status {
   LOADING,

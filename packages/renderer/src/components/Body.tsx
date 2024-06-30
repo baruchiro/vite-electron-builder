@@ -1,28 +1,27 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react';
-import { Button, Form, Image, Modal } from 'react-bootstrap';
+import { useContext, useState } from 'react';
+import { Button, Image, Modal } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
-import settingsIcon from '../assets/gear.svg';
-import { toggleUIVersion } from '../eventsBridge';
 import { StoreContext } from '../Store';
+import settingsIcon from '../assets/gear.svg';
 import {
+  ModalStatus,
+  OutputVendorName,
   type Account,
   type Exporter,
   type Importer,
-  ModalStatus,
-  OutputVendorName,
 } from '../types';
+import styles from './Body.module.css';
+import CheckForUpdates from './CheckForUpdates';
+import GeneralSettings from './GeneralSettings';
 import AccountLogs from './accounts/AccountLogs';
 import AccountsContainer from './accounts/AccountsContainer';
 import CreateImporter from './accounts/CreateImporter';
 import EditImporter from './accounts/EditImporter';
 import Importers from './accounts/Importers';
-import styles from './Body.module.css';
 import EditExporter from './exporters/EditExporter';
 import Exporters from './exporters/Exporters';
-import GeneralSettings from './GeneralSettings';
-import CheckForUpdates from './CheckForUpdates';
 
 type BodyProps = {
   scrape;
@@ -151,12 +150,6 @@ const Body = ({ scrape }: BodyProps) => {
           src={settingsIcon}
           onClick={() => showModal(null, ModalStatus.GENERAL_SETTINGS)}
           className={styles.pointer}
-        />
-        <Form.Check
-          type="switch"
-          onClick={toggleUIVersion}
-          label="מעבר לממשק ישן"
-          defaultChecked
         />
       </Container>
       <Container className={styles.checkUpdatesContainer}>
