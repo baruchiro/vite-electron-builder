@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { action, makeAutoObservable } from 'mobx';
+import { action, autorun, makeAutoObservable, observable, toJS } from 'mobx';
 import { createContext } from 'react';
 import {
   type Account,
@@ -33,6 +33,7 @@ export default class Store {
     this.accountScrapingData = new Map();
     this.fetchingYnabAccountData = false;
     makeAutoObservable(this, {
+      config: observable,
       handleScrapingEvent: action,
       addImporter: action,
       updateImporter: action,
@@ -41,6 +42,10 @@ export default class Store {
       fetchYnabAccountData: action,
       toggleShowBrowser: action,
       setNumDaysBack: action,
+    });
+
+    autorun(() => {
+      this.saveConfig();
     });
   }
 
@@ -157,7 +162,6 @@ export default class Store {
     }
     const accountToScrapeConfig: AccountToScrapeConfig = createAccountToScrapeConfigFromImporter(importerConfig);
     this.config.scraping.accountsToScrape.push(accountToScrapeConfig);
-    await updateConfig(this.config);
   }
 
   async updateImporter(id: string, updatedImporterConfig: Importer) {
@@ -167,19 +171,16 @@ export default class Store {
       throw new Error(`Cant update importer with id ${id}. No importer with that id found`);
     }
     this.config.scraping.accountsToScrape[importerIndex] = createAccountToScrapeConfigFromImporter(updatedImporterConfig);
-    await updateConfig(this.config);
   }
 
   async deleteImporter(id: string) {
     this.verifyConfigDefined();
     this.config.scraping.accountsToScrape = this.config.scraping.accountsToScrape.filter((importer) => importer.id !== id);
-    await updateConfig(this.config);
   }
 
   async updateExporter(updatedExporterConfig: Exporter) {
     this.verifyConfigDefined();
     this.config.outputVendors[updatedExporterConfig.companyId] = createOutputVendorConfigFromExporter(updatedExporterConfig);
-    await updateConfig(this.config);
   }
 
   verifyConfigDefined() {
@@ -191,31 +192,26 @@ export default class Store {
   async toggleShowBrowser() {
     this.verifyConfigDefined();
     this.config.scraping.showBrowser = !this.config.scraping.showBrowser;
-    await updateConfig(this.config);
   }
 
   async setNumDaysBack(numDaysBack: number) {
     this.verifyConfigDefined();
     this.config.scraping.numDaysBack = numDaysBack;
-    await updateConfig(this.config);
   }
 
   async setTimeout(timeout: number) {
     this.verifyConfigDefined();
     this.config.scraping.timeout = timeout;
-    await updateConfig(this.config);
   }
 
   async setMaxConcurrency(maxConcurrency: number) {
     this.verifyConfigDefined();
     this.config.scraping.maxConcurrency = maxConcurrency;
-    await updateConfig(this.config);
   }
 
   async setChromiumPath(chromiumPath?: string) {
     this.verifyConfigDefined();
     this.config.scraping.chromiumPath = chromiumPath;
-    await updateConfig(this.config);
   }
 
   async fetchYnabAccountData(ynabOptions: YnabConfig['options']) {
@@ -224,6 +220,11 @@ export default class Store {
     this.ynabAccountData = await getYnabAccountData(ynabOptions);
     this.fetchingYnabAccountData = false;
     console.log('Ynab account data ', this.ynabAccountData);
+  }
+
+  async saveConfig() {
+    if (!this.config) return;
+    await updateConfig(toJS(this.config));
   }
 
 }
