@@ -70,6 +70,7 @@
     "electron-log": "^5.1.5",
     "electron-updater": "6.2.1",
     "emittery": "^1.0.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "googleapis": "^139.0.0",
     "israeli-bank-scrapers-core": "^4.5.0",
     "keytar": "^7.9.0",

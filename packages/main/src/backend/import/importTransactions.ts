@@ -35,9 +35,13 @@ export async function scrapeFinancialAccountsAndFetchTransactions(
 ) {
   let chromiumPath: string;
 
+  console.log('Scraping financial accounts and fetching transactions');
+
   if (scrapingConfig.chromiumPath) {
+    console.log('Using provided chromium path', scrapingConfig.chromiumPath);
     chromiumPath = scrapingConfig.chromiumPath;
   } else {
+    console.log('Downloading chromium');
     chromiumPath = await getChrome(userDataPath, percent =>
       emitChromeDownload(eventPublisher, percent),
     );
@@ -90,6 +94,7 @@ function buildImporterEvent(
 }
 
 function emitChromeDownload(eventPublisher: EventPublisher, percent: number) {
+  console.log(`Downloading chrome ${percent}%`);
   eventPublisher.emit(EventNames.DOWNLOAD_CHROME, new DownalodChromeEvent(percent));
 }
 

@@ -28,12 +28,13 @@ export async function getYnabAccountData(ynabOptions: YnabConfig['options']): Pr
 let progressListenerDefined = false;
 
 export async function scrape(handleScrapingEvent: HandleScrapingEvent) {
+  console.log('Sending scrape event to main');
   await electron.ipcRenderer.send('scrape');
   if (!progressListenerDefined) {
     electron.ipcRenderer.on('scrapingProgress', (_, progressEventStr) => {
       const progressEvent = JSON.parse(progressEventStr);
-      const { eventName } = progressEvent;
-      const { eventData } = progressEvent;
+      const { eventName, eventData } = progressEvent;
+      console.log('Received scraping progress event', eventName, eventData);
       handleScrapingEvent(eventName, eventData);
     });
     progressListenerDefined = true;

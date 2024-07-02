@@ -4,6 +4,7 @@
     "node": false
   },
   "extends": [
+    "plugin:react-hooks/recommended"
   ],
   "parserOptions": {
     "parser": "@typescript-eslint/parser",

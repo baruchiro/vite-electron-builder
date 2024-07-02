@@ -16,7 +16,7 @@ const getIntegerPercent = (callback: PercentCallback): PuppeteerProgressCallback
   };
 };
 
-const revision = getPuppeteerConfig().chromiumRevision;
+const revision = '1321684'; // getPuppeteerConfig().chromiumRevision; see https://github.com/puppeteer/puppeteer/issues/8203#issuecomment-1535088987
 
 let downloadProm: ReturnType<typeof downloadChromium> | null = null;
 
@@ -32,6 +32,8 @@ export default async function downloadChromium(installPath: string, onProgress?:
     downloadProgressCallback: progressCallback,
   }).then(({ executablePath }) => {
     downloadProm = null;
+    // TODO: eslint to use logger instead of console.log
+    console.log('Chromium downloaded to', executablePath);
     return executablePath;
   });
 

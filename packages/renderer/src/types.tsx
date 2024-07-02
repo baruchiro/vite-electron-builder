@@ -120,7 +120,7 @@ export enum AccountStatus {
   ERROR = 'error',
 }
 
-export type BudgetTrackingEvent = {
+export class BudgetTrackingEvent {
   message: string;
 
   vendorId?: CompanyTypes | OutputVendorName;
@@ -130,7 +130,26 @@ export type BudgetTrackingEvent = {
   error?: Error;
 
   accountType?: AccountType;
+
+  constructor({
+    message, vendorId, error, accountType, accountStatus = AccountStatus.IN_PROGRESS,
+  }: BudgetTrackingEvent) {
+    this.message = message;
+    this.vendorId = vendorId;
+    this.error = error;
+    this.accountType = accountType;
+    this.accountStatus = accountStatus;
+  }
 };
+
+export class DownalodChromeEvent extends BudgetTrackingEvent {
+  percent: number;
+
+  constructor(percent: number) {
+    super({ message: `Download Chrome: ${percent}%` });
+    this.percent = percent;
+  }
+}
 
 /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // End of common types
