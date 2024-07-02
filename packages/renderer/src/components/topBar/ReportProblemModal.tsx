@@ -9,7 +9,7 @@ import {
 import LogsCanvas from './LogsCanvas';
 import { isValidEmail } from '../../utils/validations';
 import { getZIndexes } from '../../utils/zIndexesManager';
-import { StoreContext } from '../../Store';
+import { StoreContext } from '../../store/Store';
 
 const NUM_OF_LAST_LINES = 10;
 

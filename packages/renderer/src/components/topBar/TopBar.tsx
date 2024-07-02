@@ -7,7 +7,7 @@ import { openExternal } from '#preload';
 import NavButton from './NavButton';
 import styles from './TopBar.module.css';
 import ReportProblemModal from './ReportProblemModal';
-import { StoreContext } from '../../Store';
+import { StoreContext } from '../../store/Store';
 
 function TopBar() {
   const [show, setShow] = useState(false);

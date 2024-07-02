@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useMemo } from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import { useNewStore } from '../NewStore';
+import { useNewStore } from '../store/NewStore';
 
 const ChromeDownloadProgress = () => {
   const newStore = useNewStore();

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
-import { StoreContext } from '../Store';
+import { StoreContext } from '../store/Store';
 import { checkForUpdate, downloadUpdate, openExternal } from '#preload';
 
 const UPDATE_STATES = {

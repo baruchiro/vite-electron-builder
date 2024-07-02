@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import logsIcon from '../../assets/card-text.svg';
 import settingsIcon from '../../assets/gear.svg';
 import resultsIcon from '../../assets/results.svg';
-import { StoreContext } from '../../Store';
+import { StoreContext } from '../../store/Store';
 import {
   type Account as AccountType,
   AccountStatus,

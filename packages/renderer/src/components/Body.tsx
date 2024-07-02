@@ -2,8 +2,8 @@ import { scrape } from '#preload';
 import { observer } from 'mobx-react-lite';
 import { useCallback, useContext, useState } from 'react';
 import { Button, Container, Image, Modal, Stack } from 'react-bootstrap';
-import { useNewStore } from '../NewStore';
-import { StoreContext } from '../Store';
+import { useNewStore } from '../store/NewStore';
+import { StoreContext } from '../store/Store';
 import settingsIcon from '../assets/gear.svg';
 import {
   ModalStatus,

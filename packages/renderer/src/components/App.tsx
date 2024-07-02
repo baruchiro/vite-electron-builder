@@ -1,7 +1,7 @@
 import { getAppInfo, getConfig } from '#preload';
 import { useEffect } from 'react';
-import { NewStoreProvider } from '../NewStore';
-import Store, { StoreContext } from '../Store';
+import { NewStoreProvider } from '../store/NewStore';
+import Store, { StoreContext } from '../store/Store';
 import './App.css';
 import Body from './Body';
 import TopBar from './topBar/TopBar';

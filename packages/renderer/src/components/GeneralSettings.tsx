@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { Card, Form } from 'react-bootstrap';
-import { StoreContext } from '../Store';
+import { StoreContext } from '../store/Store';
 import styles from './GeneralSettings.module.css';
 
 function GeneralSettings() {

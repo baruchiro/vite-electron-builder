@@ -13,9 +13,9 @@ import {
   ExporterResultType,
   type Importer,
   type Log,
-} from './types';
-import accountMetadata, { exporterUIHandlers } from './accountMetadata';
-import { type YnabAccountDataType, type YnabConfig } from '../../src/backend/commonTypes';
+} from '../types';
+import accountMetadata, { exporterUIHandlers } from '../accountMetadata';
+import { type YnabAccountDataType, type YnabConfig } from '../../../src/backend/commonTypes';
 import { openExternal, openItem, updateConfig } from '#preload';
 
 export default class Store {
