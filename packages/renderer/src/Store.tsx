@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { action, autorun, makeAutoObservable, observable, toJS } from 'mobx';
+import { action, autorun, makeAutoObservable, toJS } from 'mobx';
 import { createContext } from 'react';
 import {
   type Account,
@@ -29,11 +29,13 @@ export default class Store {
 
   appInfo: AppInfo;
 
+  inc = 0;
+
   constructor() {
     this.accountScrapingData = new Map();
     this.fetchingYnabAccountData = false;
+    // TODO: remove ovveride
     makeAutoObservable(this, {
-      config: observable,
       handleScrapingEvent: action,
       addImporter: action,
       updateImporter: action,
@@ -47,6 +49,10 @@ export default class Store {
     autorun(() => {
       this.saveConfig();
     });
+  }
+
+  increment() {
+    this.inc++;
   }
 
   set configuration(config: Config) {
@@ -119,6 +125,7 @@ export default class Store {
   }
 
   handleScrapingEvent(eventName: string, budgetTrackingEvent?: BudgetTrackingEvent) {
+    console.log('Received scraping event', eventName, budgetTrackingEvent);
     if (budgetTrackingEvent) {
       const accountId = budgetTrackingEvent.vendorId;
       if (accountId) {

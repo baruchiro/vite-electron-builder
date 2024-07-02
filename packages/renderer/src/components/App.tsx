@@ -1,15 +1,12 @@
-import { getAppInfo, getConfig, scrape } from '#preload';
+import { getAppInfo, getConfig } from '#preload';
 import { useEffect } from 'react';
+import { NewStoreProvider } from '../NewStore';
 import Store, { StoreContext } from '../Store';
 import './App.css';
 import Body from './Body';
 import TopBar from './topBar/TopBar';
 
 const store = new Store();
-const boundScrape = async () => {
-  store.clearScrapingStatus();
-  await scrape(store.handleScrapingEvent);
-};
 
 function App() {
   useEffect(() => {
@@ -23,10 +20,12 @@ function App() {
 
   return (
     <StoreContext.Provider value={store}>
-      <div className="App">
-        <TopBar />
-        <Body scrape={boundScrape} />
-      </div>
+      <NewStoreProvider>
+        <div className="App">
+          <TopBar />
+          <Body />
+        </div>
+      </NewStoreProvider>
     </StoreContext.Provider>
   );
 }

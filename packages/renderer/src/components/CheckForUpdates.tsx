@@ -57,26 +57,26 @@ function CheckForUpdates() {
     <>
       {updateState === UPDATE_STATES.LOADING && <Spinner animation="border" role="status" />}
       {updateState === UPDATE_STATES.INIT && (
-        <Button variant="dark" size="sm" className="m-2" onClick={checkForUpdates}>
+        <Button variant="dark" size="sm" onClick={checkForUpdates}>
           בדיקת עדכונים
         </Button>
       )}
       {updateState === UPDATE_STATES.NO_NEW_VERSION && <div>אין עדכונים זמינים</div>}
       {updateState === UPDATE_STATES.NEW_VERSION_AVAILABLE && (
-        <div className="m-2">
-          <Button variant="dark" size="sm" className="m-2" onClick={downloadNewVersion}>
+        <div>
+          <Button variant="dark" size="sm" onClick={downloadNewVersion}>
             הורדת גירסה {updateInfo?.version}
           </Button>
-          <Button variant="dark" size="sm" className="m-2" onClick={openGithubRelease}>
+          <Button variant="dark" size="sm" onClick={openGithubRelease}>
             לפתוח Github
           </Button>
-          <Button variant="dark" size="sm" className="m-2" onClick={openCompare}>
+          <Button variant="dark" size="sm" onClick={openCompare}>
             לפתוח השוואה
           </Button>
         </div>
       )}
       {updateState === UPDATE_STATES.READY_TO_INSTALL && (
-        <Button variant="dark" size="sm" className="m-2" onClick={quitAndInstall}>
+        <Button variant="dark" size="sm" onClick={quitAndInstall}>
           יציאה והתקנה
         </Button>
       )}

@@ -1,8 +1,8 @@
+import { scrape } from '#preload';
 import { observer } from 'mobx-react-lite';
-import { useContext, useState } from 'react';
-import { Button, Image, Modal } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Stack from 'react-bootstrap/Stack';
+import { useCallback, useContext, useState } from 'react';
+import { Button, Container, Image, Modal, Stack } from 'react-bootstrap';
+import { useNewStore } from '../NewStore';
 import { StoreContext } from '../Store';
 import settingsIcon from '../assets/gear.svg';
 import {
@@ -14,6 +14,7 @@ import {
 } from '../types';
 import styles from './Body.module.css';
 import CheckForUpdates from './CheckForUpdates';
+import ChromeDownloadProgress from './ChromeDownloadProgress';
 import GeneralSettings from './GeneralSettings';
 import AccountLogs from './accounts/AccountLogs';
 import AccountsContainer from './accounts/AccountsContainer';
@@ -23,12 +24,15 @@ import Importers from './accounts/Importers';
 import EditExporter from './exporters/EditExporter';
 import Exporters from './exporters/Exporters';
 
-type BodyProps = {
-  scrape;
-};
-
-const Body = ({ scrape }: BodyProps) => {
+const Body = () => {
   const store = useContext(StoreContext);
+  const newStore = useNewStore();
+  const cleanAndScrape = useCallback(() => {
+    store.clearScrapingStatus();
+    newStore.clearScrapingStatus();
+    return scrape(newStore.handleScrapingEvent.bind(newStore));
+  }, [store, newStore]);
+
   const { config } = store;
   const { isScraping } = store;
   const [modalStatus, setModalStatus] = useState<ModalStatus>(
@@ -137,11 +141,11 @@ const Body = ({ scrape }: BodyProps) => {
         </Modal>
       </Container>
       <Container className={styles.buttonsContainer}>
+        <ChromeDownloadProgress />
         <Button
           variant="dark"
           size="lg"
-          className={styles.scrapeButton}
-          onClick={scrape}
+          onClick={cleanAndScrape}
           disabled={store.isScraping}
         >
           הפעל
@@ -151,8 +155,6 @@ const Body = ({ scrape }: BodyProps) => {
           onClick={() => showModal(null, ModalStatus.GENERAL_SETTINGS)}
           className={styles.pointer}
         />
-      </Container>
-      <Container className={styles.checkUpdatesContainer}>
         <CheckForUpdates />
       </Container>
     </Container>
