@@ -8,7 +8,7 @@ import StatusIndicator from './StatusIndicator';
 export type ActionButton = {
   icon: string;
   tooltipText: string;
-  clickHandler: () => void;
+  clickHandler?: () => void;
 };
 
 type AccountProps = {

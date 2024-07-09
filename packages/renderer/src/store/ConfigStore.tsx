@@ -104,15 +104,14 @@ class ConfigStore {
 
   get exporters(): Exporter[] {
     if (!this.config) return [];
-    const { outputVendors } = this.config;
-    return Object.keys(outputVendors).map(exporterKey => {
-      const exporter = outputVendors[exporterKey as OutputVendorName];
+    return Object.entries(this.config.outputVendors).map(([exporterKey, exporter]) => {
       return {
         ...createAccountObject(
           exporterKey,
           exporterKey as OutputVendorName,
           AccountType.EXPORTER,
           !!exporter?.active,
+          this.accountScrapingData.get(exporterKey as OutputVendorName),
         ),
         options: exporter?.options || {},
       };

@@ -1,13 +1,11 @@
-import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
 import logsIcon from '../../assets/card-text.svg';
 import settingsIcon from '../../assets/gear.svg';
 import resultsIcon from '../../assets/results.svg';
 import {
   type Account as AccountType,
   AccountStatus,
-  AccountType as TypeOfAccount,
   ModalStatus,
+  AccountType as TypeOfAccount,
 } from '../../types';
 import Account, { type ActionButton } from './Account';
 import NewAccount from './NewAccount';
@@ -56,7 +54,7 @@ export function getActionButtons(
   showModal,
   account: AccountType,
   isScraping,
-  openResultsHandler: () => void,
+  openResultsHandler?: () => void,
 ): ActionButton[] {
   const logsActionButton = {
     icon: logsIcon,
