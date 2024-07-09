@@ -1,224 +1,22 @@
 /* eslint-disable no-console */
-import { action, autorun, makeAutoObservable, toJS } from 'mobx';
-import { createContext } from 'react';
-import {
-  type Account,
-  AccountStatus,
-  type AccountToScrapeConfig,
-  AccountType,
-  type AppInfo,
-  type BudgetTrackingEvent,
-  type Config,
-  type Exporter,
-  ExporterResultType,
-  type Importer,
-  type Log,
-} from '../types';
-import accountMetadata, { exporterUIHandlers } from '../accountMetadata';
+import { getYnabAccountData } from '#preload';
+import { action, makeAutoObservable } from 'mobx';
+import { createContext, useContext } from 'react';
 import { type YnabAccountDataType, type YnabConfig } from '../../../src/backend/commonTypes';
-import { openExternal, openItem, updateConfig } from '#preload';
 
+// TODO: rename to YnabStore
 export default class Store {
-  config?: Config;
-
-  accountScrapingData: Map<string, { logs: Log[], status: AccountStatus }>;
 
   ynabAccountData?: YnabAccountDataType;
 
   fetchingYnabAccountData: boolean;
 
-  appInfo: AppInfo;
-
-  inc = 0;
-
   constructor() {
-    this.accountScrapingData = new Map();
     this.fetchingYnabAccountData = false;
     // TODO: remove ovveride
     makeAutoObservable(this, {
-      handleScrapingEvent: action,
-      addImporter: action,
-      updateImporter: action,
-      deleteImporter: action,
-      clearScrapingStatus: action,
       fetchYnabAccountData: action,
-      toggleShowBrowser: action,
-      setNumDaysBack: action,
     });
-
-    autorun(() => {
-      this.saveConfig();
-    });
-  }
-
-  increment() {
-    this.inc++;
-  }
-
-  set configuration(config: Config) {
-    this.config = config;
-  }
-
-  get importers(): Importer[] {
-    if (!this.config) return [];
-    return this.config.scraping.accountsToScrape.map((accountToScrape) => {
-      return {
-        ...this.createAccountObject(accountToScrape.id, accountToScrape.key, AccountType.IMPORTER, accountToScrape.active),
-        loginFields: accountToScrape.loginFields,
-      };
-    });
-  }
-
-  get exporters(): Exporter[] {
-    if (!this.config) return [];
-    const { outputVendors } = this.config;
-    return Object.keys(outputVendors).map((exporterKey) => {
-      const exporter = outputVendors[exporterKey];
-      return {
-        ...this.createAccountObject(exporterKey, exporterKey, AccountType.EXPORTER, exporter.active),
-        options: exporter.options,
-      };
-    });
-  }
-
-  get allAccounts(): Account[] {
-    const { importers } = this;
-    const { exporters } = this;
-    return [
-      ...importers,
-      ...exporters,
-    ];
-  }
-
-  get allAccountsById(): Map<string, Account> {
-    const accountsById = new Map<string, Account>();
-    this.allAccounts.forEach((account) => {
-      accountsById.set(account.id, account);
-    });
-    return accountsById;
-  }
-
-  get settings() {
-    return {
-      numDaysBack: this.config?.scraping.numDaysBack,
-      showBrowser: this.config?.scraping.showBrowser,
-    };
-  }
-
-  get isScraping(): boolean {
-    return !!Array.from(this.accountScrapingData.values()).find((account) => account.status === AccountStatus.IN_PROGRESS);
-  }
-
-  openResults(exporterName: string) {
-    const config = this.config?.outputVendors[exporterName];
-    const { resultType, getResultUri } = exporterUIHandlers[exporterName];
-    const uri = getResultUri(config);
-    if (resultType === ExporterResultType.WEBSITE_URL) {
-      openExternal(uri);
-    } else {
-      openItem(uri);
-    }
-  }
-
-  clearScrapingStatus() {
-    this.accountScrapingData = new Map();
-  }
-
-  handleScrapingEvent(eventName: string, budgetTrackingEvent?: BudgetTrackingEvent) {
-    console.log('Received scraping event', eventName, budgetTrackingEvent);
-    if (budgetTrackingEvent) {
-      const accountId = budgetTrackingEvent.vendorId;
-      if (accountId) {
-        if (!this.accountScrapingData.has(accountId)) {
-          this.accountScrapingData.set(accountId, {
-            logs: [],
-            status: AccountStatus.IDLE,
-          });
-        }
-        const accountScrapingData = this.accountScrapingData.get(accountId);
-        if (accountScrapingData) {
-          accountScrapingData.logs.push({ message: budgetTrackingEvent.message, originalEvent: budgetTrackingEvent });
-          accountScrapingData.status = budgetTrackingEvent.accountStatus;
-        }
-      }
-    }
-  }
-
-  createAccountObject(id: string, companyId: string, type: AccountType, active: boolean): Account {
-    const metadata = accountMetadata[companyId];
-    if (!metadata) {
-      throw new Error(`No metadata found for companyId ${companyId}`);
-    }
-    const accountScrapingData = this.accountScrapingData.get(companyId);
-    return {
-      id,
-      companyId,
-      displayName: metadata.companyName,
-      logo: metadata.logo,
-      type,
-      active,
-      status: accountScrapingData ? accountScrapingData.status : AccountStatus.IDLE,
-      logs: accountScrapingData ? accountScrapingData.logs : [],
-    };
-  }
-
-  async addImporter(importerConfig: Importer) {
-    this.verifyConfigDefined();
-    if (!accountMetadata[importerConfig.companyId]) {
-      throw new Error(`Company id ${importerConfig.companyId} is not a valid company id`);
-    }
-    const accountToScrapeConfig: AccountToScrapeConfig = createAccountToScrapeConfigFromImporter(importerConfig);
-    this.config.scraping.accountsToScrape.push(accountToScrapeConfig);
-  }
-
-  async updateImporter(id: string, updatedImporterConfig: Importer) {
-    this.verifyConfigDefined();
-    const importerIndex = this.config.scraping.accountsToScrape.findIndex((importer) => importer.id === id);
-    if (importerIndex === -1) {
-      throw new Error(`Cant update importer with id ${id}. No importer with that id found`);
-    }
-    this.config.scraping.accountsToScrape[importerIndex] = createAccountToScrapeConfigFromImporter(updatedImporterConfig);
-  }
-
-  async deleteImporter(id: string) {
-    this.verifyConfigDefined();
-    this.config.scraping.accountsToScrape = this.config.scraping.accountsToScrape.filter((importer) => importer.id !== id);
-  }
-
-  async updateExporter(updatedExporterConfig: Exporter) {
-    this.verifyConfigDefined();
-    this.config.outputVendors[updatedExporterConfig.companyId] = createOutputVendorConfigFromExporter(updatedExporterConfig);
-  }
-
-  verifyConfigDefined() {
-    if (!this.config) {
-      throw new Error('Config not defined');
-    }
-  }
-
-  async toggleShowBrowser() {
-    this.verifyConfigDefined();
-    this.config.scraping.showBrowser = !this.config.scraping.showBrowser;
-  }
-
-  async setNumDaysBack(numDaysBack: number) {
-    this.verifyConfigDefined();
-    this.config.scraping.numDaysBack = numDaysBack;
-  }
-
-  async setTimeout(timeout: number) {
-    this.verifyConfigDefined();
-    this.config.scraping.timeout = timeout;
-  }
-
-  async setMaxConcurrency(maxConcurrency: number) {
-    this.verifyConfigDefined();
-    this.config.scraping.maxConcurrency = maxConcurrency;
-  }
-
-  async setChromiumPath(chromiumPath?: string) {
-    this.verifyConfigDefined();
-    this.config.scraping.chromiumPath = chromiumPath;
   }
 
   async fetchYnabAccountData(ynabOptions: YnabConfig['options']) {
@@ -229,24 +27,8 @@ export default class Store {
     console.log('Ynab account data ', this.ynabAccountData);
   }
 
-  async saveConfig() {
-    if (!this.config) return;
-    await updateConfig(toJS(this.config));
-  }
-
 }
 
-const createAccountToScrapeConfigFromImporter = (importerConfig: Importer): AccountToScrapeConfig => ({
-  id: importerConfig.id,
-  active: importerConfig.active,
-  key: importerConfig.companyId,
-  loginFields: importerConfig.loginFields,
-  name: importerConfig.displayName,
-});
-
-const createOutputVendorConfigFromExporter = (exporterConfig: Exporter) => ({
-  active: exporterConfig.active,
-  options: exporterConfig.options,
-});
-
-export const StoreContext = createContext<Store>(null);
+const StoreContext = createContext<Store>(null);
+export const StoreProvider = StoreContext.Provider;
+export const useStore = () => useContext(StoreContext);

@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
+import { checkForUpdate, downloadUpdate, openExternal, quitAndInstall } from '#preload';
+import { useState } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
-import { StoreContext } from '../store/Store';
-import { checkForUpdate, downloadUpdate, openExternal } from '#preload';
+import { useAppInfoStore } from '../store';
 
 const UPDATE_STATES = {
   INIT: 'INIT',
@@ -19,7 +19,7 @@ type UpdateInfo = {
 function CheckForUpdates() {
   const [updateState, setUpdateState] = useState(UPDATE_STATES.INIT);
   const [updateInfo, setUpdateInfo] = useState<UpdateInfo>();
-  const store = useContext(StoreContext);
+  const store = useAppInfoStore();
 
   const checkForUpdates = async () => {
     setUpdateState(UPDATE_STATES.LOADING);

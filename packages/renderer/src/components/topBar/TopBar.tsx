@@ -7,11 +7,11 @@ import { openExternal } from '#preload';
 import NavButton from './NavButton';
 import styles from './TopBar.module.css';
 import ReportProblemModal from './ReportProblemModal';
-import { StoreContext } from '../../store/Store';
+import { useAppInfoStore } from '/@/store';
 
 function TopBar() {
   const [show, setShow] = useState(false);
-  const store = useContext(StoreContext);
+  const appInfoStore = useAppInfoStore();
 
   return (
     <>
@@ -36,11 +36,11 @@ function TopBar() {
           <Stack direction="horizontal" gap={5}>
             <NavButton onClick={() => setShow(true)} text="דיווח על בעיה" />
             <NavButton
-              onClick={() => openExternal(store.appInfo?.discordChanel)}
+              onClick={() => openExternal(appInfoStore.appInfo?.discordChanel)}
               text="ערוץ הדיסקורד שלנו"
             />
             <NavButton
-              onClick={() => openExternal(store.appInfo?.repository)}
+              onClick={() => openExternal(appInfoStore.appInfo?.repository)}
               text="לפתוח ב-Github"
             />
           </Stack>

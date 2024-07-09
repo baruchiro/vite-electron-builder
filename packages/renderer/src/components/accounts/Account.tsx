@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import piggyBank from '../../assets/piggy-bank.svg';
 import { type Account as AccountType } from '../../types';
@@ -17,21 +17,22 @@ type AccountProps = {
 };
 
 export default function Account({ account, actionButtons }: AccountProps) {
-  const containerStyles = [styles.container];
+  const containerStyles = useMemo(() => {
+    const s = [styles.container];
+    if (!account.active) s.push(styles.notActive);
+    if (!actionButtons) s.push(styles.pointer);
+    return s;
+  }, [account.active, actionButtons]);
 
-  const badgeNumberLog = account.logs.find(
-    (log) => log.originalEvent && log.originalEvent.exportedTransactionsNum > 0,
+  const badgeNumberLog = useMemo(
+    () =>
+      account.logs.find(log => log.originalEvent && log.originalEvent.exportedTransactionsNum > 0),
+    [account.logs],
   );
-  if (!account.active) containerStyles.push(styles.notActive);
-  if (!actionButtons) containerStyles.push(styles.pointer);
+
   return (
     <div className={containerStyles.join(' ')}>
-      <img
-        src={account.logo || piggyBank}
-        alt={account.displayName}
-        height={29}
-        width={29}
-      />
+      <img src={account.logo || piggyBank} alt={account.displayName} height={29} width={29} />
       <div className={styles.nameWrapper}>
         <div className={styles.name}>{account.displayName}</div>
       </div>

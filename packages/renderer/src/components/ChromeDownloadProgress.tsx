@@ -1,24 +1,24 @@
 import { observer } from 'mobx-react-lite';
 import { useMemo } from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import { useNewStore } from '../store/NewStore';
+import { useConfigStore } from '../store/ConfigStore';
 
 const ChromeDownloadProgress = () => {
-  const newStore = useNewStore();
+  const configStore = useConfigStore();
 
   const label = useMemo(
     () =>
-      newStore.chromeDownloadPercent && newStore.chromeDownloadPercent === 100
+      configStore.chromeDownloadPercent && configStore.chromeDownloadPercent === 100
         ? 'Download Completed'
-        : `Downloading Chrome ${newStore.chromeDownloadPercent}%`,
-    [newStore.chromeDownloadPercent],
+        : `Downloading Chrome ${configStore.chromeDownloadPercent}%`,
+    [configStore.chromeDownloadPercent],
   );
 
-  if (!newStore.chromeDownloadPercent) {
+  if (!configStore.chromeDownloadPercent) {
     return null;
   }
 
-  return <ProgressBar now={newStore.chromeDownloadPercent} label={label} className='w-100' />;
+  return <ProgressBar now={configStore.chromeDownloadPercent} label={label} className='w-100' />;
 };
 
 export default observer(ChromeDownloadProgress);

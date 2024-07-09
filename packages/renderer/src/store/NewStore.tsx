@@ -41,13 +41,8 @@ class NewStore {
 }
 
 const newStore = new NewStore();
-setInterval(() => {
-  newStore.increment();
-  newStore.data2++;
-}, 1000);
-
 const StoreContext = createContext(newStore);
-export const NewStoreProvider = ({ children }: { children: React.ReactNode }) => (
+const NewStoreProvider = ({ children }: { children: React.ReactNode }) => (
   <StoreContext.Provider value={newStore}>{children}</StoreContext.Provider>
 );
-export const useNewStore = () => useContext(StoreContext);
+const useNewStore = () => useContext(StoreContext);

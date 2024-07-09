@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import logsIcon from '../../assets/card-text.svg';
 import settingsIcon from '../../assets/gear.svg';
 import resultsIcon from '../../assets/results.svg';
-import { StoreContext } from '../../store/Store';
 import {
   type Account as AccountType,
   AccountStatus,
@@ -12,6 +11,7 @@ import {
 } from '../../types';
 import Account, { type ActionButton } from './Account';
 import NewAccount from './NewAccount';
+import { useConfigStore } from '/@/store/ConfigStore';
 
 type ImportersProps = {
   accounts: AccountType[];
@@ -26,7 +26,7 @@ function Importers({
   showModal,
   handleNewAccountClicked,
 }: ImportersProps) {
-  const store = useContext(StoreContext);
+  const configStore = useConfigStore();
   return (
     <>
       {accounts.map((account) => {
@@ -39,7 +39,7 @@ function Importers({
               account,
               isScraping,
               () => {
-                store.openResults(account.companyId);
+                configStore.openResults(account.companyId);
               },
             )}
           />
@@ -103,4 +103,4 @@ export function getActionButtons(
   return actionButtons;
 }
 
-export default observer(Importers);
+export default Importers;

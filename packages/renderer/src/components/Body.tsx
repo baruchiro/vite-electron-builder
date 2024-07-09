@@ -1,10 +1,9 @@
 import { scrape } from '#preload';
 import { observer } from 'mobx-react-lite';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button, Container, Image, Modal, Stack } from 'react-bootstrap';
-import { useNewStore } from '../store/NewStore';
-import { StoreContext } from '../store/Store';
 import settingsIcon from '../assets/gear.svg';
+import { useConfigStore } from '../store/ConfigStore';
 import {
   ModalStatus,
   OutputVendorName,
@@ -25,16 +24,12 @@ import EditExporter from './exporters/EditExporter';
 import Exporters from './exporters/Exporters';
 
 const Body = () => {
-  const store = useContext(StoreContext);
-  const newStore = useNewStore();
+  const configStore = useConfigStore();
   const cleanAndScrape = useCallback(() => {
-    store.clearScrapingStatus();
-    newStore.clearScrapingStatus();
-    return scrape(newStore.handleScrapingEvent.bind(newStore));
-  }, [store, newStore]);
+    configStore.clearScrapingStatus();
+    return scrape(configStore.handleScrapingEvent.bind(configStore));
+  }, [configStore]);
 
-  const { config } = store;
-  const { isScraping } = store;
   const [modalStatus, setModalStatus] = useState<ModalStatus>(
     ModalStatus.HIDDEN,
   );
@@ -53,21 +48,21 @@ const Body = () => {
   };
 
   const createImporter = async (importer: Importer) => {
-    await store.addImporter(importer);
+    await configStore.addImporter(importer);
     closeModal();
   };
   const updateImporter = async (importer: Importer) => {
-    await store.updateImporter(importer.id, importer);
+    await configStore.updateImporter(importer.id, importer);
     closeModal();
   };
 
   const updateExporter = async (exporter: Exporter) => {
-    await store.updateExporter(exporter);
+    await configStore.updateExporter(exporter);
     closeModal();
   };
 
-  const deleteImporter = async (importerId) => {
-    await store.deleteImporter(importerId);
+  const deleteImporter = async (importerId: string) => {
+    await configStore.deleteImporter(importerId);
     closeModal();
   };
 
@@ -76,26 +71,26 @@ const Body = () => {
       <Container className={styles.container}>
         <div className={styles.contentContainer}>
           <Stack direction="horizontal" className={styles.customGap}>
-            {config && config.scraping && (
+            {configStore.config && configStore.config.scraping && (
               <AccountsContainer title="בנקים וכרטיסי אשראי">
                 <Importers
-                  accounts={store.importers}
-                  isScraping={isScraping}
+                  accounts={configStore.importers}
+                  isScraping={configStore.isScraping}
                   showModal={showModal}
                   handleNewAccountClicked={newScraperClicked}
                 />
               </AccountsContainer>
             )}
-            {config && config.outputVendors && (
+            {configStore.config && configStore.config.outputVendors && (
               <AccountsContainer
                 title="תוכנות ניהול תקציב"
-                accounts={store.exporters}
-                isScraping={isScraping}
+                accounts={configStore.exporters}
+                isScraping={configStore.isScraping}
                 showModal={showModal}
               >
                 <Exporters
-                  exporters={store.exporters}
-                  isScraping={isScraping}
+                  exporters={configStore.exporters}
+                  isScraping={configStore.isScraping}
                   showModal={showModal}
                 />
               </AccountsContainer>
@@ -146,7 +141,7 @@ const Body = () => {
           variant="dark"
           size="lg"
           onClick={cleanAndScrape}
-          disabled={store.isScraping}
+          disabled={configStore.isScraping}
         >
           הפעל
         </Button>

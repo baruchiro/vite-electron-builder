@@ -9,7 +9,7 @@ import styles from './EditYnabExporter.module.css';
 import { type YnabConfig } from '../../types';
 
 import YnabAccountMappingTable from './YnabAccountMappingTable';
-import { StoreContext } from '../../store/Store';
+import { useStore } from '/@/store';
 
 type EditYnabExporterProps = {
   handleSave: (exporterConfig: YnabConfig) => Promise<void>;
@@ -21,7 +21,7 @@ const INVALID_ACCESS_TOKEN = 'INVALID_ACCESS_TOKEN';
 const EditYnabExporter = ({ handleSave, exporterConfig }: EditYnabExporterProps) => {
   const [ynabOptions, setYnabOptions] = useState<YnabConfig['options']>(toJS<YnabConfig['options']>(exporterConfig.options));
   const [active, setActive] = useState<boolean>(exporterConfig.active);
-  const store = useContext(StoreContext);
+  const store = useStore();
 
   const isLoading = !store.ynabAccountData || store.fetchingYnabAccountData;
   const isValidAccessToken = !isLoading && store.ynabAccountData?.status !== INVALID_ACCESS_TOKEN;

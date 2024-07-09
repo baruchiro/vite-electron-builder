@@ -1,19 +1,18 @@
 import mapValues from 'lodash/mapValues';
+import { exporterIcons, importerIcons } from './assets';
 import {
   type Account,
   type AccountMetadata,
   AccountType,
   CompanyTypes,
-  type Exporter,
+  type CsvConfig,
   ExporterResultType,
   type ExportResultMetadata,
   type GoogleSheetsConfig,
   type JsonConfig,
   OutputVendorName,
-  type YnabConfig,
-  type CsvConfig,
+  type YnabConfig
 } from './types';
-import { exporterIcons, importerIcons } from './assets';
 
 const icons = {
   ...importerIcons,
@@ -129,30 +128,30 @@ export const exporterUIHandlers: Record<
 > = {
   [OutputVendorName.YNAB]: {
     resultType: ExporterResultType.WEBSITE_URL,
-    getResultUri(exporter: Exporter): string {
+    getResultUri(exporter: YnabConfig): string {
       return `https://app.youneedabudget.com/${
-        (exporter as YnabConfig).options.budgetId
+        exporter.options.budgetId
       }`;
     },
   },
   [OutputVendorName.GOOGLE_SHEETS]: {
     resultType: ExporterResultType.WEBSITE_URL,
-    getResultUri(exporter: Exporter): string {
+    getResultUri(exporter: GoogleSheetsConfig): string {
       return `https://docs.google.com/spreadsheets/d/${
-        (exporter as GoogleSheetsConfig).options.spreadsheetId
+        exporter.options.spreadsheetId
       }/edit`;
     },
   },
   [OutputVendorName.CSV]: {
     resultType: ExporterResultType.WEBSITE_URL,
-    getResultUri(exporter: Exporter): string {
-      return (exporter as CsvConfig).options.filePath;
+    getResultUri(exporter: CsvConfig): string {
+      return exporter.options.filePath;
     },
   },
   [OutputVendorName.JSON]: {
     resultType: ExporterResultType.WEBSITE_URL,
-    getResultUri(exporter: Exporter): string {
-      return (exporter as JsonConfig).options.filePath;
+    getResultUri(exporter: JsonConfig): string {
+      return exporter.options.filePath;
     },
   },
 };

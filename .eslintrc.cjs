@@ -17,6 +17,7 @@ module.exports = {
     'eslint:recommended',
     /** @see https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#recommended-configs */
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/stylistic-type-checked',
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
@@ -44,6 +45,8 @@ module.exports = {
         fixStyle: 'inline-type-imports',
       },
     ],
+    // '@typescript-eslint/prefer-optional-chain': 'warn',
+    // '@typescript-eslint/prefer-nullish-coalescing': 'warn',
     /**
      * Having a semicolon helps the optimizer interpret your code correctly.
      * This avoids rare errors in optimized code.

@@ -44,7 +44,7 @@ export type OutputVendorConfig<T extends OutputVendorName> = Exclude<
   undefined
 >;
 
-interface OutputVendorConfigBase {
+export interface OutputVendorConfigBase {
   active: boolean;
 }
 
@@ -79,8 +79,7 @@ export interface YnabConfig extends OutputVendorConfigBase {
 
 export interface AccountToScrapeConfig {
   id: string;
-  // key: CompanyTypes;
-  key: string;
+  key: CompanyTypes;
   name: string;
   loginFields: Record<string, string>;
   active?: boolean;
@@ -162,7 +161,7 @@ export interface Log {
 
 export interface Account {
   id: string;
-  companyId: string;
+  companyId: CompanyTypes | OutputVendorName;
   displayName: string;
   logo: string;
   type: AccountType;
@@ -201,5 +200,5 @@ export enum ExporterResultType {
 
 export interface ExportResultMetadata {
   resultType: ExporterResultType;
-  getResultUri(exporter: Exporter): string;
+  getResultUri(exporter: OutputVendorConfigBase): string;
 }

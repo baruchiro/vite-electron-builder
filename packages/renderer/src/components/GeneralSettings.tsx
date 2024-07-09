@@ -1,20 +1,19 @@
 import { observer } from 'mobx-react-lite';
-import { useContext } from 'react';
 import { Card, Form } from 'react-bootstrap';
-import { StoreContext } from '../store/Store';
+import { useConfigStore } from '../store/ConfigStore';
 import styles from './GeneralSettings.module.css';
 
 function GeneralSettings() {
-  const store = useContext(StoreContext);
+  const configStore = useConfigStore();
 
   function toggleShowBrowser() {
-    store.toggleShowBrowser();
+    configStore.toggleShowBrowser();
   }
 
   const handleTimeoutChanged = (timeout: string) => {
     const numberTimeout = Number(timeout);
     if (numberTimeout) {
-      store.setTimeout(numberTimeout);
+      configStore.setTimeout(numberTimeout);
     }
   };
 
@@ -27,14 +26,14 @@ function GeneralSettings() {
             <Form.Check
               type="switch"
               onClick={toggleShowBrowser}
-              defaultChecked={store.config?.scraping?.showBrowser}
+              defaultChecked={configStore.config?.scraping?.showBrowser}
             />
             <Form.Group>
               <Form.Label>כמה ימים אחורה לחפש?</Form.Label>
               <Form.Control
                 className={styles.input}
-                defaultValue={store.config?.scraping.numDaysBack}
-                onBlur={event => store.setNumDaysBack(event.target.value)}
+                defaultValue={configStore.config?.scraping.numDaysBack}
+                onBlur={event => configStore.setNumDaysBack(event.target.value)}
                 autoFocus
               />
             </Form.Group>
@@ -42,23 +41,23 @@ function GeneralSettings() {
               <Form.Label>כמה חשבונות לשלוף במקביל?</Form.Label>
               <Form.Control
                 className={styles.input}
-                defaultValue={store.config?.scraping.maxConcurrency}
-                onBlur={event => store.setMaxConcurrency(event.target.value)}
+                defaultValue={configStore.config?.scraping.maxConcurrency}
+                onBlur={event => configStore.setMaxConcurrency(event.target.value)}
               />
             </Form.Group>
             <Form.Group>
               <Form.Label>Chromium path</Form.Label>
               <Form.Control
                 className={styles.input}
-                defaultValue={store.config?.scraping.chromiumPath}
-                onBlur={event => store.setChromiumPath(event.target.value)}
+                defaultValue={configStore.config?.scraping.chromiumPath}
+                onBlur={event => configStore.setChromiumPath(event.target.value)}
               />
             </Form.Group>
             <Form.Group>
               <Form.Label>כמה זמן לחכות לשליפה? (millisec)</Form.Label>
               <Form.Control
                 className={styles.input}
-                defaultValue={store.config?.scraping.timeout}
+                defaultValue={configStore.config?.scraping.timeout}
                 onBlur={event => handleTimeoutChanged(event.target.value)}
               />
             </Form.Group>

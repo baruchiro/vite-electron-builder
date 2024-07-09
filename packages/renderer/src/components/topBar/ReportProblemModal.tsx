@@ -9,7 +9,7 @@ import {
 import LogsCanvas from './LogsCanvas';
 import { isValidEmail } from '../../utils/validations';
 import { getZIndexes } from '../../utils/zIndexesManager';
-import { StoreContext } from '../../store/Store';
+import { useAppInfoStore } from '/@/store';
 
 const NUM_OF_LAST_LINES = 10;
 
@@ -32,7 +32,7 @@ type ValidationError = {
 
 function ReportProblemModal({ show, onClose }: ReportProblemModalProps) {
   const [logsFolder, setLogsFolder] = useState<string>();
-  const store = useContext(StoreContext);
+  const appInfoStore = useAppInfoStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,13 +117,13 @@ ${details}`
     const sysInfo = `
         ## System Info
         
-         - Source Version: \`${store.appInfo.sourceCommitShort || 'unknown'}\`
+         - Source Version: \`${appInfoStore.appInfo.sourceCommitShort || 'unknown'}\`
          - OS: \`${os.platform()}${os.arch()}\`
          - OS Version: \`${os.release()}\`
         `;
 
     return `${
-      `${store.appInfo.repository}/issues/new?` +
+      `${appInfoStore.appInfo.repository}/issues/new?` +
       `title=${encodeURIComponent(title)}` +
       '&body='
     }${encodeURIComponent(formattedDetails + formattedLog + sysInfo)}`;
