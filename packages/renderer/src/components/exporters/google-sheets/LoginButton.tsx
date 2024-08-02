@@ -1,7 +1,7 @@
 import { electronGoogleOAuth2Connector } from '#preload';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { type Credentials } from '../../../../../src/backend/commonTypes';
+import { Credentials } from '/@/types';
 
 type LoginButtonProps = {
   onCredentialsChange: (credentials: Credentials) => void;

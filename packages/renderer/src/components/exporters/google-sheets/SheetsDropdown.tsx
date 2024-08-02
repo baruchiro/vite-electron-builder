@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { type Credentials } from '../../../../../src/backend/commonTypes';
 import { useUserSpreadsheets } from './hooks';
+import { Credentials } from '/@/types';
 
 type SheetsDropdownProps = {
   credentials: Credentials;

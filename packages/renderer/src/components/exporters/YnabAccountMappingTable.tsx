@@ -5,7 +5,6 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import { type YnabConfig } from '../../types';
-import { type YnabAccountDataType } from '../../../../src/backend/commonTypes';
 
 type AccountNumberToYnabAccountIdMappingObject = YnabConfig['options']['accountNumbersToYnabAccountIds'];
 

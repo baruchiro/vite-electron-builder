@@ -1,7 +1,10 @@
 /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Types common with the electron code
 
-import { type Credentials } from '../../src/backend/commonTypes';
+import { type Auth, type drive_v3 } from 'googleapis';
+import { BudgetSummary, type Account as YnabAccount } from 'ynab';
+export type Credentials = Auth.Credentials;
+export type Spreadsheet = Pick<drive_v3.Schema$File, 'id' | 'name'>;
 
 /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export enum OutputVendorName {
@@ -35,10 +38,7 @@ export interface AppInfo {
   currentVersion: string;
 }
 
-export type OutputVendorConfigs = Exclude<
-  Config['outputVendors'][OutputVendorName],
-  undefined
->;
+export type OutputVendorConfigs = Exclude<Config['outputVendors'][OutputVendorName], undefined>;
 export type OutputVendorConfig<T extends OutputVendorName> = Exclude<
   Config['outputVendors'][T],
   undefined
@@ -62,7 +62,7 @@ export interface JsonConfig extends OutputVendorConfigBase {
 
 export interface GoogleSheetsConfig extends OutputVendorConfigBase {
   options: {
-    credentials: Credentials;
+    credentials: Auth.Credentials;
     // credentials: string;
     spreadsheetId: string;
   };
@@ -131,7 +131,11 @@ export class BudgetTrackingEvent {
   accountType?: AccountType;
 
   constructor({
-    message, vendorId, error, accountType, accountStatus = AccountStatus.IN_PROGRESS,
+    message,
+    vendorId,
+    error,
+    accountType,
+    accountStatus = AccountStatus.IN_PROGRESS,
   }: BudgetTrackingEvent) {
     this.message = message;
     this.vendorId = vendorId;
@@ -139,7 +143,7 @@ export class BudgetTrackingEvent {
     this.accountType = accountType;
     this.accountStatus = accountStatus;
   }
-};
+}
 
 export class DownalodChromeEvent extends BudgetTrackingEvent {
   percent: number;
@@ -202,3 +206,27 @@ export interface ExportResultMetadata {
   resultType: ExporterResultType;
   getResultUri(exporter: OutputVendorConfigBase): string;
 }
+export type YnabFinancialAccount = Pick<YnabAccount, 'id' | 'name' | 'type'> & {
+  budgetId: string;
+  active: boolean;
+};
+export interface YnabAccountDetails {
+  budgets: BudgetSummary[];
+  accounts: YnabFinancialAccount[];
+  categories?: string[];
+}
+export interface FinancialAccountDetails {
+  name: string;
+  accountNumber: string;
+}
+export enum FETCH_YNAB_ACCOUNT_DATA_STATUS {
+  SUCCESS = 'SUCCESS',
+  INVALID_ACCESS_TOKEN = 'INVALID_ACCESS_TOKEN',
+  INVALID_BUDGET_ID = 'INVALID_BUDGET_ID',
+  GENERAL_ERROR = 'GENERAL_ERROR',
+}
+export type YnabAccountDataType = {
+  ynabAccountData?: YnabAccountDetails;
+  financialAccountDetails?: FinancialAccountDetails[];
+  status: FETCH_YNAB_ACCOUNT_DATA_STATUS;
+};

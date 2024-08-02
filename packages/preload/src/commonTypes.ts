@@ -1,7 +1,7 @@
 // TODO: not all the types are needed here
 import { type Auth } from 'googleapis';
 import { type Transaction } from 'israeli-bank-scrapers-core/lib/transactions';
-import { type BudgetSummary } from 'ynab';
+import { type BudgetSummary, type Account as YnabAccount } from 'ynab';
 
 export type { ScraperScrapingResult } from 'israeli-bank-scrapers-core';
 
@@ -185,7 +185,7 @@ export interface ExportResultMetadata {
   getResultUri(exporter: Exporter): string;
 }
 
-export type YnabFinancialAccount = Pick<Account, 'id' | 'name' | 'type'> & {
+export type YnabFinancialAccount = Pick<YnabAccount, 'id' | 'name' | 'type'> & {
   budgetId: string;
   active: boolean;
 };

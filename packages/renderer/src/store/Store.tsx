@@ -2,7 +2,7 @@
 import { getYnabAccountData } from '#preload';
 import { action, makeAutoObservable } from 'mobx';
 import { createContext, useContext } from 'react';
-import { type YnabAccountDataType, type YnabConfig } from '../../../src/backend/commonTypes';
+import { YnabAccountDataType, YnabConfig } from '../types';
 
 // TODO: rename to YnabStore
 export default class Store {
@@ -29,6 +29,6 @@ export default class Store {
 
 }
 
-const StoreContext = createContext<Store>(null);
+const StoreContext = createContext<Store>(new Store());
 export const StoreProvider = StoreContext.Provider;
 export const useStore = () => useContext(StoreContext);

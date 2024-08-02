@@ -6,7 +6,7 @@ import pendingIcon from '../../assets/hourglass-top.svg';
 import { AccountStatus } from '../../types';
 
 interface StatusIndicatorProps {
-    status: AccountStatus
+    status?: AccountStatus
 }
 
 export default function StatusIndicator({ status }: StatusIndicatorProps) {
