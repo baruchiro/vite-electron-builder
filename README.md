@@ -1,306 +1,164 @@
-> [!Important]
-> This project is mainrained by **developer from Ukraine** 🇺🇦
-> 
-> Due to the ongoing war resulting from Russia's full-scale invasion of Ukraine, I currently lack the time for the full development of this open-source project. My primary focus is on ensuring the well-being of myself and my family. I'll prioritize and review all new contributions as soon as possible.
->
-> If you can, please consider [supporting Ukraine](https://stand-with-ukraine.pp.ua/) or [me personally](https://www.buymeacoffee.com/kozack). 
->
-> Thank you for your understanding and support.
----
+<img src="https://user-images.githubusercontent.com/7272927/202493905-9ae851ce-70fd-43bd-9dac-0bba75ef147e.svg" width="100" height="100">
 
-# Vite Electron Builder Boilerplate
+# Caspion - Automated expense tracking from Israeli banks and credit cards
 
-This is a template for secure electron applications. Written following the latest safety requirements, recommendations
-and best practices.
+![Build/Release](https://github.com/brafdlog/caspion/workflows/Build/Release/badge.svg?branch=master&event=push)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/brafdlog/caspion.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/brafdlog/caspion/context:javascript)
+[![Discord Shield](https://discordapp.com/api/guilds/924617301209260103/widget.png?style=shield)](https://discord.gg/XWWg7xvJyS)
 
-Under the hood is [Vite] — A next-generation blazing fast bundler, and [electron-builder] for packaging.
+Many people track their expenses with spreadsheets or with budgeting apps (like [YNAB](https://ynab.com/referral/?ref=Z5wPbP0cYTWjdTQj&utm_source=customer_referral)).
 
-## Get started
+The most annoying part of this process is transferring the data from the banks or credit cards to the budgeting tool you use. It usually requires you to go to the website of each one of your banks and credit cards, and manually copy the data to your budgeting tool.
 
-Follow these steps to get started with the template:
+This project aims to automate this process by fetching the data automatically from your Israeli financial institutions and sending it to the budgeting tool of your choice.
 
-1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button (you must be
-   logged in) or just clone this repo.
-2. If you want to use another package manager you may need to edit [`.github/workflows`](https://github.com/search?q=npm+repo%3Acawa-93%2Fvite-electron-builder+path%3A.github%2Fworkflows&type=Code) since npm is used as default. (See also https://github.com/cawa-93/vite-electron-builder/issues/944)
-   > **Note**:
-   > This template configured to install `peerDependencies` automatically.
+In addition, it can automatically set an expense category for transactions according to predefined patterns.
 
+Internally it uses the [Israeli bank scrapers](https://github.com/eshaham/israeli-bank-scrapers) npm package.
 
-That's all you need. 😉
+If you want to ask questions, suggest features or report issues, join [our discord channel](https://discord.gg/XWWg7xvJyS).
 
-❤️ **If you like this template, don't forget to give a ⭐ or [send support](https://www.buymeacoffee.com/kozack/)!** 
-
+## Note
+We are in transition to a new UI. Some features don't yet exist in the new UI and will be added overtime. You can still access the old UI by clicking on the switch next to ממשק חדש.
 
 ## Features
 
-### Electron [![Electron version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/electron?label=%20)][electron]
+- One click to fetch transactions from multiple Israeli banks and credit cards
+- Exporting transactions to *Google Sheets*, *YNAB*, *Excel (CSV)* or *JSON* file
+- A basic UI for configuration
 
-- This template uses the latest electron version with all the latest security patches.
-- The architecture of the application is built according to the
-  security [guides](https://www.electronjs.org/docs/tutorial/security) and best practices.
-- The latest version of the [electron-builder] is used to package the application.
+## Running the app
 
-### Vite [![Vite version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vite?label=%20)][vite]
+Download the latest version from [Releases](https://github.com/brafdlog/caspion/releases) page, or build it from source, with the instructions below. (Mac users, you may follow these [instructions](https://github.com/brafdlog/caspion/issues/276#issuecomment-1282111297)).
 
-- [Vite] is used to bundle all source codes. It's an extremely fast bundler, that has a vast array of amazing features.
-  You can learn more about how it is arranged in [this](https://www.youtube.com/watch?v=xXrhg26VCSc) video.
-- Vite [supports](https://vitejs.dev/guide/env-and-mode.html) reading `.env` files. You can also specify the types of
-  your environment variables in [`types/env.d.ts`](types/env.d.ts).
-- Automatic hot-reloads for the `Main` and `Renderer` processes.
+### Initial setup
 
-Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON Importing`, `CSS Modules`
-, `Web Assembly` and much more.
+The first time you run the app, you will need to set up the accounts you want to fetch data from (importers).
 
-> [See all Vite features](https://vitejs.dev/guide/features.html).
+Now you can set up the exporters - where the data will be sent to. The CSV exporter is enabled by default.
+If you want to export to YNAB, see instructions at the end of the README.
 
-### TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20)][typescript] (optional)
+### Report a problem
 
-- The latest version of TypeScript is used for all the source code.
-- **Vite** supports TypeScript out of the box. However, it does not support type checking.
-- Code formatting rules follow the latest TypeScript recommendations and best practices thanks
-  to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
+We are still in beta, and you may find errors.
+Please use the **REPORT A PROBLEM** button in the app to report to us.
 
-> [Guide to disable typescript and remove dependencies](https://github.com/cawa-93/vite-electron-builder/discussions/339) 
+Use this button to find the **logs folder** as well.
 
-### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vue?label=%20&)][vue] (optional)
+## Running in a development environment
 
-- By default, web pages are built using [Vue]. However, you can easily change that. Or not use additional frameworks at
-  all.
-- Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue].
+### Prerequisites
 
-> [Find more forks 🔱 for others frameworks or setups](https://github.com/cawa-93/vite-electron-builder/discussions/categories/forks)
+- [NodeJS](https://nodejs.org/en/download/).
+- [`node-gyp`](https://github.com/nodejs/node-gyp#installation). In Windows you have a checkbox in the NodeJS installer to install also the `node-gyp`.  
+  This module is for packages that compile native code in their installation, in our case it is required for `electron` and `keytar`. (Note that if you install visual studio, you need to add the workload of `desktop development with C++`) ![image](https://user-images.githubusercontent.com/7272927/111470123-2c849b00-8730-11eb-8fd2-f40628d34413.png)
 
-### Continuous Integration
+- [Yarn](https://yarnpkg.com/getting-started/install).
 
-- The configured workflow will check the types for each push and PR.
-- The configured workflow will check the code style for each push and PR.
-- **Automatic tests**
-  used [Vitest ![Vitest version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vitest?label=%20&color=yellow)][vitest]
-  -- A blazing fast test framework powered by Vite.
-  - Unit tests are placed within each package and are ran separately.
-  - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
+#### Linux Prerequisites
 
-![Workflow graph](https://user-images.githubusercontent.com/1662812/213429323-ef4bcc87-c273-4f2f-b77f-c04cf6dbc36d.png)
+Currently, this project depends on `libsecret`, so you may need to install it before running `yarn`.
+
+Depending on your distribution, you will need to run the following command:
+
+- Debian/Ubuntu: `sudo apt-get install libsecret-1-dev`
+- Red Hat-based: `sudo yum install libsecret-devel`
+- Arch Linux: `sudo pacman -S libsecret`
+
+#### Mac Prerequisites
+
+For M1 macs, if you get an error while scraping due to not being able to download chromium, download it manually as described [here](https://linguinecode.com/post/how-to-fix-m1-mac-puppeteer-chromium-arm64-bug). Then in the settings, set the chromium path to be the result of `which chromium`
 
 
-### Publishing
+### Start from Source
 
-- Each time you push changes to the `main` branch, the [`release`](.github/workflows/release.yml) workflow starts, which creates a new draft release. For each next commit will be created and replaced artifacts. That way you will always have draft with latest artifacts, and the release can be published once it is ready. 
-  - Code signing supported. See [`release` workflow](.github/workflows/release.yml).
-  - **Auto-update is supported**. After the release is published, all client applications will download the new version
-  and install updates silently.
-  
-> **Note**:
-> This template **configured only for GitHub public repository**, but electron-builder also supports other update distribution servers. Find more in [electron-builder docs](https://www.electron.build/configuration/publish).
+- Run `yarn` to install the dependencies
+- Run `yarn serve` to start the app
+- Set up additional exporters (Optional)
+  - If you want to set up YNAB or Google Sheets, see instructions below
+- Run by clicking on the `Run` button in the app
+- Configure automatic category classification (Optional)
+  - Open `categoryCalculationScript.js`. This file contains the patterns for classifying transactions to categories automatically.
+  - Edit this file to add any mapping from function description to category that fits your needs.
+  - If using YNAB, the categories you return must match category names in YNAB
 
-## How it works
+### Building for production
 
-The template requires a minimum amount [dependencies](package.json). Only **Vite** is used for building, nothing more.
+- Run `yarn build`
 
-### Project Structure
+### YNAB integration setup (optional)
 
-The structure of this template is very similar to a monorepo. The entire source code of the project is divided into three modules (packages) that are each bundled independently:
+YNAB is a budgeting software. If you want to manage your budget there and have your expenses updated automatically to YNAB follow these steps:
 
-- [`packages/renderer`](packages/renderer). Responsible for the contents of the application window. In fact, it is a
-  regular web application. In developer mode, you can even open it in a browser. The development and build process is
-  the same as for classic web applications. Access to low-level API electrons or Node.js is done through the _preload_
-  layer.
-- [`packages/preload`](packages/preload). Contain Electron [**preload scripts**](https://www.electronjs.org/docs/latest/tutorial/tutorial-preload). Acts as an intermediate bridge between the _renderer_ process and the API
-  exposed by electron and Node.js. Runs in an _isolated browser context_, but has direct access to the full Node.js
-  functionality.
-- [`packages/main`](packages/main)
-  Contain Electron [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file). This is
-  the main process that powers the application. It manages creating and handling the spawned BrowserWindow, setting and
-  enforcing secure permissions and request handlers. You can also configure it to do much more as per your need, such
-  as: logging, reporting statistics and health status among others.
+- Create an account in [YNAB](https://ynab.com/referral/?ref=Z5wPbP0cYTWjdTQj&utm_source=customer_referral)
+- Create in YNAB unlinked accounts for each financial account you want to track (bank accounts and credit cards)
+- Get the **YNAB access token**
+  - In YNAB go to `Account settings -> Developer settings`
+  - Click on `New Token` and `generate`
+  - On the top of the screen you will see the full token (the token with XXXX in it is not the full one).
+  - Save this token in the YNAB settings in the app.
+- Choose your budget from the dropdown
+- Fill the table containing account number to ynab account id mapping
+  - For each account you want to track add another row to the table
+  - The `account number` could be the credit card number, or the bank account number. To be sure, you can run the app so it exports transactions to a CSV and get the account number from there.
+  - Then choose the matching a ynab account from the dropdown
+- **Click on Save to save the configuration**
 
-Schematically, the structure of the application and the method of communication between packages can be depicted as follows:
-```mermaid
-flowchart TB;
+### Google Sheets integration setup - when building from source code (optional)
 
-packages/preload <-. IPC Messages .-> packages/main
+If you set Google Sheets as an exporter the transactions results will appear in a dedicated sheet.
+In the release version of Caspion, this integration will work out of the box. 
+If you wish though to build/debug this from source, you will need to setup your own test OAuth 2.0 Client on GCP (Google Cloud Platform). Follow these steps:
 
-    subgraph packages/main["packages/main (Shared beatween all windows)"]
-    M[index.ts] --> EM[Electron Main Process Modules]
-    M --> N2[Node.js API]
-    end
+- Create a new project in [GCP](https://console.cloud.google.com/apis/credentials)
+- Enable [Google Sheets API](https://console.cloud.google.com/apis/api/sheets.googleapis.com)
+- On the left panel, click to create [OAuth consent screen](https://console.cloud.google.com/apis/credentials/consent)
+- Now you are ready to create your credentials that will be used later on by Caspion
+  - On the left panel, click "Credentials" -> "CREATE CREDENTIALS" (on the top) -> "OAuth 2.0 Client IDs"
+  - Application Type: "Web Application"
+  - Authorized JavaScript origins, add: `http://localhost`
+  - Authorized redirect URIs, add: `http://127.0.0.1:42813/callback` and/or `http://localhost:42813/callback`
+  - Save.
+  - Write down the generated `Client ID` & `Client Secret`
 
-subgraph Window["Browser Window"]
-    subgraph packages/preload["packages/preload (Works in isolated context)"]
-    P[index.ts] --> N[Node.js API]
-    P --> ED[External dependencies]
-    P --> ER[Electron Renderer Process Modules]
-    end
-
-
-    subgraph packages/renderer
-    R[index.html] --> W[Web API]
-    R --> BD[Bundled dependencies]
-    R --> F[Web Frameworks]
-    end
-    end
-
-packages/renderer -- Call Exposed API --> P
-```
-### Build web resources
-
-The `main` and `preload` packages are built in [library mode](https://vitejs.dev/guide/build.html#library-mode) as it is
-simple javascript.
-The `renderer` package builds as a regular web app.
-
-### Compile App
-
-The next step is to package a ready to distribute Electron app for macOS, Windows and Linux with "auto update" support
-out of the box.
-
-To do this, use [electron-builder]:
-
-- Using the npm script `compile`: This script is configured to compile the application as quickly as possible. It is not
-  ready for distribution, it is compiled only for the current platform and is used for debugging.
-- Using GitHub Actions: The application is compiled for any platform and ready-to-distribute files are automatically
-  added as a draft to the GitHub releases page.
-
-### Working with dependencies
-
-Because the `renderer` works and builds like a _regular web application_, you can only use dependencies that support the
-browser or compile to a browser-friendly format.
-
-This means that in the `renderer` you are free to use any frontend dependencies such as Vue, React, lodash, axios and so
-on. However, you _CANNOT_ use any native Node.js APIs, such as, `systeminformation`. These APIs are _only_ available in
-a Node.js runtime environment and will cause your application to crash if used in the `renderer` layer. Instead, if you
-need access to Node.js runtime APIs in your frontend, export a function form the `preload` package.
-
-All dependencies that require Node.js api can be used in
-the [`preload` script](https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts).
-
-#### Expose in main world
-Here is an example. Let's say you need to read some data from the file system or database in the renderer.
-
-In the preload context, create a function that reads and returns data. To make the function announced in the preload
-available in the render, you usually need to call
-the [`electron.contextBridge.exposeInMainWorld`](https://www.electronjs.org/ru/docs/latest/api/context-bridge). However,
-this template uses the [unplugin-auto-expose](https://github.com/cawa-93/unplugin-auto-expose) plugin, so you just need
-to export the method from the preload. The `exposeInMainWorld` will be called automatically.
-
-```ts
-// preload/index.ts
-import { readFile } from 'node:fs/promises';
-
-// Encapsulate types if you use typescript
-interface UserData {
-  prop: string
-}
-
-// Encapsulate all node.js api
-// Everything you exported from preload/index.ts may be called in renderer
-export function getUserData(): Promise<UserData> {
-  return readFile('/path/to/file/in/user/filesystem.json', {encoding:'utf8'}).then(JSON.parse);
-}
-```
-
-Now you can import and call the method in renderer
-
-```ts
-// renderer/anywere/component.ts
-import { getUserData } from '#preload'
-const userData = await getUserData()
-```
-
-> Find more in [Context Isolation tutorial](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
-
-### Working with Electron API
-
-Although the preload has access to all of Node.js's API, it **still runs in the BrowserWindow context**, so a limited
-electron modules are available in it. Check the [electron docs](https://www.electronjs.org/ru/docs/latest/api/clipboard)
-for full list of available methods.
-
-All other electron methods can be invoked in the `main`.
-
-As a result, the architecture of interaction between all modules is as follows:
-
-```mermaid
-sequenceDiagram
-renderer->>+preload: Read data from file system
-preload->>-renderer: Data
-renderer->>preload: Maximize window
-activate preload
-preload-->>main: Invoke IPC command
-activate main
-main-->>preload: IPC response
-deactivate main
-preload->>renderer: Window maximized
-deactivate preload
-```
-
-> Find more in [Inter-Process Communication tutorial](https://www.electronjs.org/docs/latest/tutorial/ipc).
-
-### Modes and Environment Variables
-
-All environment variables are set as part of the `import.meta`, so you can access them vie the following
-way: `import.meta.env`.
-
-> **Note**:
-> If you are using TypeScript and want to get code completion you must add all the environment variables to
-the [`ImportMetaEnv` in `types/env.d.ts`](types/env.d.ts).
-
-The mode option is used to specify the value of `import.meta.env.MODE` and the corresponding environment variables files
-that need to be loaded.
-
-By default, there are two modes:
-
-- `production` is used by default
-- `development` is used by `yarn watch` script
-
-When running the build script, the environment variables are loaded from the following files in your project root:
+Now that you have the keys above, store them as env variables:
 
 ```
-.env                # loaded in all cases
-.env.local          # loaded in all cases, ignored by git
-.env.[mode]         # only loaded in specified env mode
-.env.[mode].local   # only loaded in specified env mode, ignored by git
+EXPORT GOOGLE_CLIENT_ID=XXXXX
+EXPORT GOOGLE_CLIENT_SECRET=YYYYYY
 ```
 
-> **Warning**: 
-> To prevent accidentally leaking env variables to the client, only variables prefixed with `VITE_` are exposed to your
-Vite-processed code.
+That's it. Next time you'll run the code a one time OAuth authorization window will appear and ask for access.
 
-For example let's take the following `.env` file:
+### CSV (Excel) Note
 
-```
-DB_PASSWORD=foobar
-VITE_SOME_KEY=123
-```
+In some cases you may get gibberish when you open the CSV file in Excel. In this case, please follow the next steps:
 
-Only `VITE_SOME_KEY` will be exposed as `import.meta.env.VITE_SOME_KEY` to your client source code, but `DB_PASSWORD`
-will not.
+1. Open a new Excel document.
+1. Go to `Data` -> `Import From CSV/Text`.
+1. Select your CSV file.
+1. For the "Encoding"/"File Origin", select `Unicode UTF-8 (65001)`.
 
-You can change that prefix or add another. See [`envPrefix`](https://vitejs.dev/config/shared-options.html#envprefix)
+## Release
 
-## Contribution
+<details>
+<summary>Release Workflow</summary>
 
-See [Contributing Guide](contributing.md).
+> ⚠️ Warning: Outdated Information
+> 
+> This section contains information about the previous structure and requires an update. Please refer to the latest documentation for accurate instructions.
 
+The Release workflow, configured in `.github/workflows/release.yml`, will **draft** a new release or update the artifacts on an existing draft, according to the following conditions:
 
-[vite]: https://github.com/vitejs/vite/
+1. A change pushed to the `master` branch.
+2. The `version` from the `package.json`, with the prefix `v`, is not a **published** release.
+3. Upload the artifacts to the `v${package_version}` Github Release.
 
-[electron]: https://github.com/electron/electron
+It means that after you published a new release, from the Github interface, you need to upgrade the version in the `package.json` file, to get a new draft.
 
-[electron-builder]: https://github.com/electron-userland/electron-builder
+</details>
 
-[vue]: https://github.com/vuejs/vue-next
+#### Disclaimer
 
-[vue-router]: https://github.com/vuejs/vue-router-next/
-
-[typescript]: https://github.com/microsoft/TypeScript/
-
-[playwright]: https://playwright.dev
-
-[vitest]: https://vitest.dev
-
-[vue-tsc]: https://github.com/johnsoncodehk/vue-tsc
-
-[eslint-plugin-vue]: https://github.com/vuejs/eslint-plugin-vue
-
-[cawa-93-github]: https://github.com/cawa-93/
-
-[cawa-93-sponsor]: https://www.patreon.com/Kozack/
+Providing your financial account credentials to software is not risk free. We will do our best to protect your credentials, but we take no responsibility for any possible damages. If you want to use this we suggest you ask your financial institution for credentials for a user that has only read access to the relevant account and use those credentials to reduce the potential risk.
+![](https://api.segment.io/v1/pixel/page?data=ewogICJ3cml0ZUtleSI6ICJtOVh2MHpHZTFvVWphaVU4cjJUZjJBdU44SThmQlJyYyIsCiAgIm5hbWUiOiAiUkVBRE1FIiwKICAiYW5vbnltb3VzSWQiOiAiYWFhYSIKfQ==)
