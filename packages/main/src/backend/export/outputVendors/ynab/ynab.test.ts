@@ -4,6 +4,7 @@ import { TransactionStatuses, TransactionTypes } from 'israeli-bank-scrapers-cor
 import { type EnrichedTransaction } from '@/backend/commonTypes';
 import * as ynab from './ynab';
 import ClearedEnum = SaveTransaction.ClearedEnum;
+import { describe, expect, test } from 'vitest';
 
 // TODO: make tests work again
 
