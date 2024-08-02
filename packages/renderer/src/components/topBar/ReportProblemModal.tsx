@@ -13,22 +13,22 @@ import { useAppInfoStore } from '/@/store';
 
 const NUM_OF_LAST_LINES = 10;
 
-type ReportProblemForm = {
+interface ReportProblemForm {
   title?: string;
   email?: string;
   details?: string;
   attachedLogs: boolean;
-};
+}
 
-type ReportProblemModalProps = {
+interface ReportProblemModalProps {
   show: boolean;
   onClose: () => void;
-};
+}
 
-type ValidationError = {
+interface ValidationError {
   title?: string;
   email?: string;
-};
+}
 
 function ReportProblemModal({ show, onClose }: ReportProblemModalProps) {
   const [logsFolder, setLogsFolder] = useState<string>();

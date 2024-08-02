@@ -2,10 +2,10 @@ import React from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import navEllipseIcon from '../../assets/navEllipse.svg';
 
-type NavButtonProps = {
+interface NavButtonProps {
   text: string;
   onClick: () => void;
-};
+}
 
 function NavButton({ onClick, text }: NavButtonProps) {
   return (

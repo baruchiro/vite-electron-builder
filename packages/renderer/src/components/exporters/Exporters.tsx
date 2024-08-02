@@ -1,12 +1,12 @@
-import { ModalStatus, type Account as AccountType } from '../../types';
+import { type ModalStatus, type Account as AccountType } from '../../types';
 import Account from '../accounts/Account';
 import { getActionButtons } from '../accounts/Importers';
 
-type ExporterProps = {
+interface ExporterProps {
   exporters: AccountType[];
   isScraping: boolean;
   showModal: (arg0: AccountType, arg1: ModalStatus) => void;
-};
+}
 
 function Exporters({ exporters, isScraping, showModal }: ExporterProps) {
   return (

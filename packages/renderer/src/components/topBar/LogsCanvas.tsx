@@ -1,11 +1,11 @@
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { getZIndexes } from '../../utils/zIndexesManager';
 
-type LogsCanvasProps = {
+interface LogsCanvasProps {
   show: boolean;
   handleClose?: () => void;
   lastLines?: string;
-};
+}
 
 export default function LogsCanvas({ show, handleClose, lastLines }: LogsCanvasProps) {
   const splitted = lastLines?.split('\n');

@@ -9,7 +9,7 @@ import {
   OutputVendorName,
   type Account,
   type Exporter,
-  type Importer
+  type Importer,
 } from '../types';
 import styles from './Body.module.css';
 import CheckForUpdates from './CheckForUpdates';

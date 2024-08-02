@@ -7,7 +7,7 @@ import { showSaveDialog } from '#preload';
 import { type Exporter } from '../../types';
 import styles from './EditFileExporter.module.css';
 
-type EditFileExporterProps = {
+interface EditFileExporterProps {
     handleSave: (exporter: Exporter) => Promise<void>;
     exporter: Exporter;
 }

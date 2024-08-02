@@ -4,20 +4,20 @@ import { createContext, useContext } from 'react';
 import accountMetadata, { exporterUIHandlers } from '../accountMetadata';
 import {
   AccountStatus,
-  AccountToScrapeConfig,
+  type AccountToScrapeConfig,
   AccountType,
-  BudgetTrackingEvent,
-  CompanyTypes,
-  Exporter,
+  type BudgetTrackingEvent,
+  type CompanyTypes,
+  type Exporter,
   ExporterResultType,
-  Log,
-  OutputVendorName,
+  type Log,
+  type OutputVendorName,
   type Account,
   type Config,
   type Importer,
 } from '../types';
 
-type AccountScrapingData = { logs: Log[]; status: AccountStatus };
+interface AccountScrapingData { logs: Log[]; status: AccountStatus }
 
 const createAccountToScrapeConfigFromImporter = (
   importerConfig: Importer,

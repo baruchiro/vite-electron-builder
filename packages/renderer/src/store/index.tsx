@@ -1,6 +1,6 @@
 import { getConfig } from '#preload';
 import { useEffect } from 'react';
-import { Config } from '../types';
+import { type Config } from '../types';
 import { AppInfoStoreProvider, useInitAppInfoStore } from './AppInfoStore';
 import { configStore, ConfigStoreProvider } from './ConfigStore';
 import Store, { StoreProvider } from './Store';

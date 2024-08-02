@@ -1,11 +1,11 @@
 import { electronGoogleOAuth2Connector } from '#preload';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { Credentials } from '/@/types';
+import { type Credentials } from '/@/types';
 
-type LoginButtonProps = {
+interface LoginButtonProps {
   onCredentialsChange: (credentials: Credentials) => void;
-};
+}
 const LoginButton: React.FC<LoginButtonProps> = ({ onCredentialsChange }) => {
   const [loading, setLoading] = useState(false);
 

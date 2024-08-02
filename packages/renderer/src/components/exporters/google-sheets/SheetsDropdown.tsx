@@ -2,13 +2,13 @@ import React, { useCallback, useMemo } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { useUserSpreadsheets } from './hooks';
-import { Credentials } from '/@/types';
+import { type Credentials } from '/@/types';
 
-type SheetsDropdownProps = {
+interface SheetsDropdownProps {
   credentials: Credentials;
   value: string;
   onChange: (value: string) => void;
-};
+}
 const SheetsDropdown: React.FC<SheetsDropdownProps> = ({
   credentials,
   value,

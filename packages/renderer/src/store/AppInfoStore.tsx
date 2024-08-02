@@ -1,7 +1,7 @@
-import { makeAutoObservable } from "mobx";
-import { AppInfo } from "../types";
-import { createContext, useContext, useEffect } from "react";
-import { getAppInfo } from "#preload";
+import { makeAutoObservable } from 'mobx';
+import { type AppInfo } from '../types';
+import { createContext, useContext, useEffect } from 'react';
+import { getAppInfo } from '#preload';
 
 class AppInfoStore {
     appInfo: AppInfo;
@@ -26,5 +26,5 @@ export const useInitAppInfoStore = () => {
             appInfoStore.updateAppInfo(appInfo);
         });
     });
-}
+};
 export const useAppInfoStore = () => useContext(AppInfoStoreContext);

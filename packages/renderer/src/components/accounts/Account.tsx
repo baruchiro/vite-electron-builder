@@ -1,20 +1,20 @@
 import { useMemo } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import piggyBank from '../../assets/piggy-bank.svg';
-import { ExporterEndEvent, type Account as AccountType } from '../../types';
+import { type ExporterEndEvent, type Account as AccountType } from '../../types';
 import styles from './Account.module.css';
 import StatusIndicator from './StatusIndicator';
 
-export type ActionButton = {
+export interface ActionButton {
   icon: string;
   tooltipText: string;
   clickHandler?: () => void;
-};
+}
 
-type AccountProps = {
+interface AccountProps {
   account: AccountType;
   actionButtons?: ActionButton[];
-};
+}
 
 export default function Account({ account, actionButtons }: AccountProps) {
   const containerStyles = useMemo(() => {

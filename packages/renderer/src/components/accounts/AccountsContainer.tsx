@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './AccountsContainer.module.css';
 
-type AccountsContainerProps = {
+interface AccountsContainerProps {
   title: string;
   children: React.ReactNode;
 }

@@ -11,12 +11,12 @@ import Account, { type ActionButton } from './Account';
 import NewAccount from './NewAccount';
 import { useConfigStore } from '/@/store/ConfigStore';
 
-type ImportersProps = {
+interface ImportersProps {
   accounts: AccountType[];
   isScraping: boolean;
   showModal: (AccountType, ModalStatus) => void;
   handleNewAccountClicked?: () => void;
-};
+}
 
 function Importers({
   accounts,

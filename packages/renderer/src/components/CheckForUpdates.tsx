@@ -12,9 +12,9 @@ const UPDATE_STATES = {
   READY_TO_INSTALL: 'READY_TO_INSTALL',
 };
 
-type UpdateInfo = {
+interface UpdateInfo {
   version: string;
-};
+}
 
 function CheckForUpdates() {
   const [updateState, setUpdateState] = useState(UPDATE_STATES.INIT);

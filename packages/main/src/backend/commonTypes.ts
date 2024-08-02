@@ -70,7 +70,7 @@ export interface GoogleSheetsConfig extends OutputVendorConfigBase {
 export interface YnabConfig extends OutputVendorConfigBase {
   options: {
     accessToken: string;
-    accountNumbersToYnabAccountIds: { [key: string]: string };
+    accountNumbersToYnabAccountIds: Record<string, string>;
     budgetId: string;
     maxPayeeNameLength?: number;
   };
@@ -90,15 +90,15 @@ export interface EnrichedTransaction extends Transaction {
   hash: string;
 }
 
-export type ExportTransactionsParams = {
+export interface ExportTransactionsParams {
   transactionsToCreate: EnrichedTransaction[];
   startDate: Date;
   outputVendorsConfig: Config['outputVendors'];
-};
+}
 
-export type ExportTransactionsResult = {
+export interface ExportTransactionsResult {
   exportedTransactionsNum: number;
-};
+}
 
 export type ExportTransactionsFunction = (
   exportTransactionsParams: ExportTransactionsParams,
@@ -134,8 +134,8 @@ export interface YnabAccountDetails {
   categories?: string[];
 }
 
-export type YnabAccountDataType = {
+export interface YnabAccountDataType {
   ynabAccountData?: YnabAccountDetails;
   financialAccountDetails?: FinancialAccountDetails[];
   status: FETCH_YNAB_ACCOUNT_DATA_STATUS;
-};
+}

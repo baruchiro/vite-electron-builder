@@ -8,7 +8,7 @@ import { type YnabConfig } from '../../types';
 
 type AccountNumberToYnabAccountIdMappingObject = YnabConfig['options']['accountNumbersToYnabAccountIds'];
 
-type YnabAccountMappingTableProps = {
+interface YnabAccountMappingTableProps {
     accountNumberToYnabIdMapping: AccountNumberToYnabAccountIdMappingObject;
     ynabAccountData?: YnabAccountDataType;
     budgetId: string

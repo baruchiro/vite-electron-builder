@@ -1,7 +1,7 @@
 import React from 'react';
 import { type Log } from '../../types';
 
-type AccountLogsProps = {
+interface AccountLogsProps {
     logs: Log[]
 }
 

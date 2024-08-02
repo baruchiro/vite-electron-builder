@@ -55,7 +55,7 @@ export class BudgetTrackingEvent {
   }
 }
 
-export type ImporterEventParams = {
+export interface ImporterEventParams {
   message: BudgetTrackingEvent['message'];
   importerKey: CompanyTypes;
   error?: BudgetTrackingEvent['error'];
@@ -72,7 +72,7 @@ export class ImporterEvent extends BudgetTrackingEvent {
   }
 }
 
-export type ExporterEventParams = {
+export interface ExporterEventParams {
   message: string;
   exporterName: OutputVendorName;
   allTransactions: EnrichedTransaction[];
@@ -111,7 +111,7 @@ export class DownalodChromeEvent extends BudgetTrackingEvent {
   }
 }
 
-export type EventDataMap = {
+export interface EventDataMap {
   [EventNames.IMPORT_PROCESS_START]: BudgetTrackingEvent
   [EventNames.DOWNLOAD_CHROME]: DownalodChromeEvent
   [EventNames.IMPORTER_START]: ImporterEvent
@@ -127,7 +127,7 @@ export type EventDataMap = {
   [EventNames.EXPORTER_END]: ExporterEndEvent
   [EventNames.GENERAL_ERROR]: BudgetTrackingEvent
   [EventNames.LOG]: BudgetTrackingEvent
-};
+}
 
 export class BudgetTrackingEventEmitter extends Emittery<EventDataMap> {
 

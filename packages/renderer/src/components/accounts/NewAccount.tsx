@@ -2,7 +2,7 @@ import React from 'react';
 import plusCircle from '../../assets/plus-circle.svg';
 import styles from './NewAccount.module.css';
 
-type NewAccountProps = {
+interface NewAccountProps {
   onClick: () => void
 }
 

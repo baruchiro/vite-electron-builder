@@ -8,11 +8,11 @@ import {
 } from '../../accountMetadata';
 import styles from './EditImporter.module.css';
 
-type EditImporterProps = {
+interface EditImporterProps {
   handleSave: (importer: Importer) => Promise<void>;
   handleDelete: (id: string) => Promise<void> | void;
   importer: Importer;
-};
+}
 
 export default function EditImporter({
   handleSave,

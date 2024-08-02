@@ -71,7 +71,7 @@ export interface GoogleSheetsConfig extends OutputVendorConfigBase {
 export interface YnabConfig extends OutputVendorConfigBase {
   options: {
     accessToken: string;
-    accountNumbersToYnabAccountIds: { [key: string]: string };
+    accountNumbersToYnabAccountIds: Record<string, string>;
     budgetId: string;
     maxPayeeNameLength?: number;
   };
@@ -120,7 +120,7 @@ export enum AccountStatus {
   ERROR = 'error',
 }
 
-export type BudgetTrackingEvent = {
+export interface BudgetTrackingEvent {
   message: string;
 
   vendorId?: CompanyTypes | OutputVendorName;
@@ -130,7 +130,7 @@ export type BudgetTrackingEvent = {
   error?: Error;
 
   accountType?: AccountType;
-};
+}
 
 /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // End of common types
@@ -160,11 +160,11 @@ export interface Exporter extends Account {
   options: object;
 }
 
-export type AccountMetadata = {
+export interface AccountMetadata {
   companyId: string;
   companyName: string;
   logo: string;
-};
+}
 
 export enum ModalStatus {
   IMPORTER_SETTINGS,
@@ -213,11 +213,11 @@ export enum FETCH_YNAB_ACCOUNT_DATA_STATUS {
   GENERAL_ERROR = 'GENERAL_ERROR',
 }
 
-export type YnabAccountDataType = {
+export interface YnabAccountDataType {
   ynabAccountData?: YnabAccountDetails;
   financialAccountDetails?: FinancialAccountDetails[];
   status: FETCH_YNAB_ACCOUNT_DATA_STATUS;
-};
+}
 
 export interface EnrichedTransaction extends Transaction {
   accountNumber: string;

@@ -6,7 +6,7 @@ import Account from './Account';
 import styles from './CreateImporter.module.css';
 import EditImporter from './EditImporter';
 
-type CreateImporterProps = {
+interface CreateImporterProps {
   handleSave: (importer: Importer) => Promise<void>;
   cancel: () => void;
 }

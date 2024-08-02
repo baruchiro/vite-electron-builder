@@ -20,8 +20,8 @@ const YNAB_DATE_FORMAT = 'YYYY-MM-DD';
 const NOW = moment();
 const MIN_YNAB_ACCESS_TOKEN_LENGTH = 43;
 
-const categoriesMap: Map<string, Pick<ynab.Category, 'id' | 'name' | 'category_group_id'>> = new Map();
-const transactionsFromYnab: Map<Date, ynab.TransactionDetail[]> = new Map();
+const categoriesMap = new Map<string, Pick<ynab.Category, 'id' | 'name' | 'category_group_id'>>();
+const transactionsFromYnab = new Map<Date, ynab.TransactionDetail[]>();
 
 let ynabConfig: YnabConfig | undefined;
 let ynabAPI: ynab.API | undefined;
@@ -78,7 +78,7 @@ function getTransactions(startDate: Date): Promise<ynab.TransactionsResponse> {
   return ynabAPI!.transactions.getTransactions(ynabConfig!.options.budgetId, moment(startDate).format(YNAB_DATE_FORMAT));
 }
 
-export function getPayeeName(transaction: EnrichedTransaction, payeeNameMaxLength: number = 50) {
+export function getPayeeName(transaction: EnrichedTransaction, payeeNameMaxLength = 50) {
   // Specific case for Bank Hapoalim - Where we can extract the payee name from the memo. Note the "." is added
   // from the israeli-bank-scrapers project, and not from the bank itself
   if (transaction.memo?.startsWith('לטובת') && transaction.memo.includes('עבור')) {

@@ -4,7 +4,7 @@ import {
   type Credentials,
   type HandleScrapingEvent,
   type YnabConfig,
-  YnabAccountDataType
+  type YnabAccountDataType,
 } from './commonTypes';
 
 export async function getConfig(): Promise<Config> {

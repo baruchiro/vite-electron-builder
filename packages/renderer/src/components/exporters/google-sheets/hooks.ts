@@ -1,7 +1,7 @@
 import { createSpreadsheet, getAllUserSpreadsheets, validateToken } from '#preload';
 import { toJS } from 'mobx';
 import { useEffect, useState } from 'react';
-import { Credentials, Spreadsheet } from '/@/types';
+import { type Credentials, type Spreadsheet } from '/@/types';
 
 export enum Status {
   LOADING,

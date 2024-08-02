@@ -11,7 +11,7 @@ import {
   type GoogleSheetsConfig,
   type JsonConfig,
   OutputVendorName,
-  type YnabConfig
+  type YnabConfig,
 } from './types';
 
 const icons = {

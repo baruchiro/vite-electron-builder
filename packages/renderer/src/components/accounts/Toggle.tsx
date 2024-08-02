@@ -2,7 +2,7 @@ import React from 'react';
 import toggleOff from '../../assets/toggle-off.svg';
 import toggleOn from '../../assets/toggle-on.svg';
 
-type ToggleProps = {
+interface ToggleProps {
     on: boolean;
     onChange: () => void
 }

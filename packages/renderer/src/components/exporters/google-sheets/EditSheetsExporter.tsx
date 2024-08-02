@@ -8,10 +8,10 @@ import LoginButton from './LoginButton';
 import SheetsDropdown from './SheetsDropdown';
 import { Status, createSheetIfNew, useTokenStatus } from './hooks';
 
-type EditSheetsExporterProps = {
+interface EditSheetsExporterProps {
   handleSave: (exporterConfig: GoogleSheetsConfig) => Promise<void>;
   exporterConfig: GoogleSheetsConfig;
-};
+}
 
 const EditSheetsExporter: React.FC<EditSheetsExporterProps> = ({
   handleSave,

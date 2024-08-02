@@ -11,7 +11,7 @@ import { type YnabConfig } from '../../types';
 import YnabAccountMappingTable from './YnabAccountMappingTable';
 import { useStore } from '/@/store';
 
-type EditYnabExporterProps = {
+interface EditYnabExporterProps {
   handleSave: (exporterConfig: YnabConfig) => Promise<void>;
   exporterConfig: YnabConfig;
 }

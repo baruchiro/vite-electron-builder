@@ -3,7 +3,7 @@ import logger from '../logging/logger';
 
 const { autoUpdater } = electronUpdater;
 
-export type UpdateInfo = {
+export interface UpdateInfo {
   version: string
 }
 

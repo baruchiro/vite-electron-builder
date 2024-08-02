@@ -4,10 +4,10 @@ import EditFileExporter from './EditFileExporter';
 import EditSheetsExporter from './google-sheets/EditSheetsExporter';
 import EditYnabExporter from './EditYnabExporter';
 
-type EditExporterProps = {
+interface EditExporterProps {
   handleSave: (exporterConfig: Exporter | YnabConfig) => Promise<void>;
   exporter: Exporter;
-};
+}
 
 export default function EditExporter({
   handleSave,
