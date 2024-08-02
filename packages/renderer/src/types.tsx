@@ -2,7 +2,9 @@
 // Types common with the electron code
 
 import { type Auth, type drive_v3 } from 'googleapis';
+import { type Transaction } from 'israeli-bank-scrapers-core/lib/transactions';
 import { BudgetSummary, type Account as YnabAccount } from 'ynab';
+
 export type Credentials = Auth.Credentials;
 export type Spreadsheet = Pick<drive_v3.Schema$File, 'id' | 'name'>;
 
@@ -152,6 +154,20 @@ export class DownalodChromeEvent extends BudgetTrackingEvent {
     super({ message: `Download Chrome: ${percent}%` });
     this.percent = percent;
   }
+}
+
+export interface EnrichedTransaction extends Transaction {
+  accountNumber: string;
+  category?: string;
+  hash: string;
+}
+
+export interface ExporterEvent extends BudgetTrackingEvent {
+  allTransactions: EnrichedTransaction[];
+}
+
+export interface ExporterEndEvent extends ExporterEvent {
+  exportedTransactionsNum: number;
 }
 
 /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

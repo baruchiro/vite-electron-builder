@@ -1,11 +1,10 @@
 import electron from 'electron';
 import {
-  type Credentials,
-  type FinancialAccountDetails,
-  type HandleScrapingEvent,
-  type YnabAccountDetails,
   type Config,
+  type Credentials,
+  type HandleScrapingEvent,
   type YnabConfig,
+  YnabAccountDataType
 } from './commonTypes';
 
 export async function getConfig(): Promise<Config> {
@@ -18,10 +17,7 @@ export async function updateConfig(config: Config) {
   await electron.ipcRenderer.invoke('updateConfig', JSON.stringify(config));
 }
 
-export async function getYnabAccountData(ynabOptions: YnabConfig['options']): Promise<{
-  ynabAccountData: YnabAccountDetails;
-  financialAccountDetails: FinancialAccountDetails[];
-}> {
+export async function getYnabAccountData(ynabOptions: YnabConfig['options']): Promise<YnabAccountDataType> {
   return electron.ipcRenderer.invoke('getYnabAccountData', ynabOptions);
 }
 

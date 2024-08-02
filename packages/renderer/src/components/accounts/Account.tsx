@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import piggyBank from '../../assets/piggy-bank.svg';
-import { type Account as AccountType } from '../../types';
+import { ExporterEndEvent, type Account as AccountType } from '../../types';
 import styles from './Account.module.css';
 import StatusIndicator from './StatusIndicator';
 
@@ -26,7 +26,7 @@ export default function Account({ account, actionButtons }: AccountProps) {
 
   const badgeNumberLog = useMemo(
     () =>
-      account.logs.find(log => log.originalEvent && log.originalEvent.exportedTransactionsNum > 0),
+      account.logs.find(log => log.originalEvent && (log.originalEvent as ExporterEndEvent).exportedTransactionsNum > 0),
     [account.logs],
   );
 
@@ -48,9 +48,9 @@ export default function Account({ account, actionButtons }: AccountProps) {
           />
         ))}
       <StatusIndicator status={account.status} />
-      {badgeNumberLog && (
+      {badgeNumberLog?.originalEvent && (
         <Badge className={styles.newTxnsIndicator} bg={'success'}>
-          {badgeNumberLog.originalEvent.exportedTransactionsNum}
+          {(badgeNumberLog.originalEvent as ExporterEndEvent).exportedTransactionsNum}
         </Badge>
       )}
     </div>

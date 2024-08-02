@@ -13,7 +13,7 @@ export default class Store {
 
   constructor() {
     this.fetchingYnabAccountData = false;
-    // TODO: remove ovveride
+    // TODO: remove override
     makeAutoObservable(this, {
       fetchYnabAccountData: action,
     });

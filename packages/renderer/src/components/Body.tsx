@@ -127,7 +127,7 @@ const Body = () => {
                 />
               )}
             {modalStatus === ModalStatus.NEW_SCRAPER && (
-              <CreateImporter handleSave={createImporter} />
+              <CreateImporter handleSave={createImporter} cancel={closeModal} />
             )}
             {modalStatus === ModalStatus.GENERAL_SETTINGS && (
               <GeneralSettings />

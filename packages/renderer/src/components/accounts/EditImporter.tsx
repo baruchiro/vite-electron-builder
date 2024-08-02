@@ -10,7 +10,7 @@ import styles from './EditImporter.module.css';
 
 type EditImporterProps = {
   handleSave: (importer: Importer) => Promise<void>;
-  handleDelete: (id: string) => Promise<void>;
+  handleDelete: (id: string) => Promise<void> | void;
   importer: Importer;
 };
 
