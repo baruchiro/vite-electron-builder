@@ -1,5 +1,4 @@
 import { Browser, install } from '@puppeteer/browsers';
-import { getPuppeteerConfig } from 'israeli-bank-scrapers-core';
 
 type PuppeteerProgressCallback = (downloadBytes: number, totalBytes: number) => void
 type PercentCallback = (percent: number) => void

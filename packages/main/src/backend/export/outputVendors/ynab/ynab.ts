@@ -126,7 +126,7 @@ function getYnabCategoryIdFromCategoryName(categoryName?: string) {
   if (!categoryToReturn) {
     return null;
   }
-  return categoryToReturn && categoryToReturn.id;
+  return categoryToReturn?.id;
 }
 
 export async function initCategories() {
@@ -181,7 +181,7 @@ export function areStringsEqualIgnoreCaseAndWhitespace(str1: string | null | und
 }
 
 function normalizeWhitespace(str: string) {
-  return str && str.trim().replace(/\s+/g, ' ');
+  return str?.trim().replace(/\s+/g, ' ');
 }
 
 // eslint-disable-next-line max-len

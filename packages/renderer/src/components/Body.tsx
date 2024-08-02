@@ -71,7 +71,7 @@ const Body = () => {
       <Container className={styles.container}>
         <div className={styles.contentContainer}>
           <Stack direction="horizontal" className={styles.customGap}>
-            {configStore.config && configStore.config.scraping && (
+            {configStore.config?.scraping && (
               <AccountsContainer title="בנקים וכרטיסי אשראי">
                 <Importers
                   accounts={configStore.importers}

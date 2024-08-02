@@ -52,8 +52,8 @@ const createAccountObject = (
     logo: metadata.logo,
     type,
     active,
-    status: accountScrapingData?.status || AccountStatus.IDLE,
-    logs: accountScrapingData?.logs || [],
+    status: accountScrapingData?.status ?? AccountStatus.IDLE,
+    logs: accountScrapingData?.logs ?? [],
   };
 };
 
@@ -175,7 +175,7 @@ class ConfigStore {
             message: budgetTrackingEvent.message,
             originalEvent: budgetTrackingEvent,
           });
-          accountScrapingData.status = budgetTrackingEvent.accountStatus || AccountStatus.IDLE;
+          accountScrapingData.status = budgetTrackingEvent.accountStatus ?? AccountStatus.IDLE;
         }
       }
     }

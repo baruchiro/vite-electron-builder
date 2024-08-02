@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 // jest-dom adds custom jest matchers for asserting on DOM nodes.
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
@@ -11,6 +12,7 @@ const MOCK_ELECTRON = {
   },
 };
 
+// @ts-expect-error - this is a mock
 window.require = (name: string) => {
   if (name === 'electron') {
     return MOCK_ELECTRON;

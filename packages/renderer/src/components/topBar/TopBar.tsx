@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
-import NavBar from 'react-bootstrap/Navbar';
-import { Container, Stack } from 'react-bootstrap';
-import logo from '../../assets/logoFishOnly.svg';
 import { openExternal } from '#preload';
+import { useState } from 'react';
+import { Container, Stack } from 'react-bootstrap';
+import NavBar from 'react-bootstrap/Navbar';
+import logo from '../../assets/logoFishOnly.svg';
 
 import NavButton from './NavButton';
-import styles from './TopBar.module.css';
 import ReportProblemModal from './ReportProblemModal';
+import styles from './TopBar.module.css';
 import { useAppInfoStore } from '/@/store';
 
 function TopBar() {

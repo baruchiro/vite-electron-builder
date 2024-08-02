@@ -15,7 +15,7 @@ export { Events };
 export const { inputVendors } = bankScraper;
 
 export async function scrapeAndUpdateOutputVendors(config: Config, optionalEventPublisher?: Events.EventPublisher) {
-  const eventPublisher = optionalEventPublisher || new Events.BudgetTrackingEventEmitter();
+  const eventPublisher = optionalEventPublisher ?? new Events.BudgetTrackingEventEmitter();
 
   const startDate = moment()
     .subtract(config.scraping.numDaysBack, 'days')

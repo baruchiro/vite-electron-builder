@@ -36,8 +36,7 @@ export default function Account({ account, actionButtons }: AccountProps) {
       <div className={styles.nameWrapper}>
         <div className={styles.name}>{account.displayName}</div>
       </div>
-      {actionButtons &&
-        actionButtons.map(({ icon, clickHandler, tooltipText }) => (
+      {actionButtons?.map(({ icon, clickHandler, tooltipText }) => (
           <img
             className={styles.logsButton}
             src={icon}

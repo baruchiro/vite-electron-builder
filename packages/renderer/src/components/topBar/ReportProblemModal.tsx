@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Button, Form, Modal, Row, Col, Stack } from 'react-bootstrap';
-import os from 'os';
 import {
   getLogsInfo,
   openExternal,
   sentryUserReportProblem,
 } from '#preload';
-import LogsCanvas from './LogsCanvas';
+import os from 'os';
+import { useEffect, useState } from 'react';
+import { Button, Col, Form, Modal, Row, Stack } from 'react-bootstrap';
 import { isValidEmail } from '../../utils/validations';
 import { getZIndexes } from '../../utils/zIndexesManager';
+import LogsCanvas from './LogsCanvas';
 import { useAppInfoStore } from '/@/store';
 
 const NUM_OF_LAST_LINES = 10;

@@ -90,5 +90,5 @@ export async function createSpreadsheet(
   });
 
   const { spreadsheetId } = spreadsheetResponse.data;
-  return spreadsheetId as string;
+  return spreadsheetId!;
 }
