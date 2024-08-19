@@ -39,13 +39,13 @@ jobs:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
+          cache: 'yarn'
 
-      - run: npm ci
+      - run: yarn
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 
-      - run: npm run lint --if-present
+      - run: yarn lint
 
   # This job just check code style for in-template contributions.
   code-style:
@@ -55,7 +55,7 @@ jobs:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
+          cache: 'yarn'
 
-      - run: npm i prettier
+      - run: yarn add prettier
       - run: npx prettier --check "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue}"

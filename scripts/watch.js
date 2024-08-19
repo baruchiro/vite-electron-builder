@@ -5,7 +5,7 @@ import electronPath from 'electron';
 import {spawn} from 'child_process';
 
 /** @type 'production' | 'development'' */
-const mode = (process.env.MODE = process.env.MODE || 'development');
+const mode = (process.env.MODE = process.env.MODE ?? 'development');
 
 /** @type {import('vite').LogLevel} */
 const logLevel = 'warn';

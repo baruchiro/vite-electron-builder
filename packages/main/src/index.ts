@@ -3,6 +3,7 @@ import './security-restrictions';
 import {restoreOrCreateWindow} from '/@/mainWindow';
 import {platform} from 'node:process';
 import updater from 'electron-updater';
+import { registerHandlers } from './handlers';
 
 /**
  * Prevent electron from running multiple instances.
@@ -50,11 +51,11 @@ app
 //     .whenReady()
 //     .then(() => import('electron-devtools-installer'))
 //     .then(module => {
-//       const {default: installExtension, VUEJS_DEVTOOLS} =
+//       const {default: installExtension, REACT_DEVELOPER_TOOLS} =
 //         //@ts-expect-error Hotfix for https://github.com/cawa-93/vite-electron-builder/issues/915
 //         typeof module.default === 'function' ? module : (module.default as typeof module);
 //
-//       return installExtension(VUEJS_DEVTOOLS, {
+//       return installExtension(REACT_DEVELOPER_TOOLS, {
 //         loadExtensionOptions: {
 //           allowFileAccess: true,
 //         },
@@ -70,7 +71,7 @@ app
  *
  * Note: It may throw "ENOENT: no such file app-update.yml"
  * if you compile production app without publishing it to distribution server.
- * Like `npm run compile` does. It's ok 😅
+ * Like `yarn compile` does. It's ok 😅
  */
 if (import.meta.env.PROD) {
   app
@@ -78,3 +79,5 @@ if (import.meta.env.PROD) {
     .then(() => updater.autoUpdater.checkForUpdatesAndNotify())
     .catch(e => console.error('Failed check and install updates:', e));
 }
+
+registerHandlers();

@@ -11,11 +11,12 @@
     }
   ],
   "trailingComma": "all",
-  "bracketSpacing": false,
+  "bracketSpacing": true,
   "arrowParens": "avoid",
   "proseWrap": "never",
   "htmlWhitespaceSensitivity": "strict",
   "vueIndentScriptAndStyle": false,
   "endOfLine": "lf",
-  "singleAttributePerLine": true
+  "singleAttributePerLine": false,
+  "plugins": ["prettier-plugin-organize-imports"]
 }
