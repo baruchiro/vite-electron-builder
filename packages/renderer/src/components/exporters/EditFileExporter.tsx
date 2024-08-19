@@ -24,7 +24,7 @@ const EditFileExporter = ({
       active: !exporterConfig.active,
     });
   };
-  const updateOption = (optionUpdates) => {
+  const updateOption = (optionUpdates: Partial<Exporter['options']>) => {
     setExporterConfig({
       ...exporterConfig,
       options: {
@@ -34,7 +34,7 @@ const EditFileExporter = ({
     });
   };
 
-  const handleChooseFile = (event) => {
+  const handleChooseFile: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     updateOption({
       filePath: event.currentTarget.value,
     });

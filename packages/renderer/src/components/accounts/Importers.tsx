@@ -2,10 +2,10 @@ import logsIcon from '../../assets/card-text.svg';
 import settingsIcon from '../../assets/gear.svg';
 import resultsIcon from '../../assets/results.svg';
 import {
-  type Account as AccountType,
   AccountStatus,
   ModalStatus,
   AccountType as TypeOfAccount,
+  type Account as AccountType
 } from '../../types';
 import Account, { type ActionButton } from './Account';
 import NewAccount from './NewAccount';
@@ -14,46 +14,34 @@ import { useConfigStore } from '/@/store/ConfigStore';
 interface ImportersProps {
   accounts: AccountType[];
   isScraping: boolean;
-  showModal: (AccountType, ModalStatus) => void;
+  showModal: (AccountType: AccountType, ModalStatus: ModalStatus) => void;
   handleNewAccountClicked?: () => void;
 }
 
-function Importers({
-  accounts,
-  isScraping,
-  showModal,
-  handleNewAccountClicked,
-}: ImportersProps) {
+function Importers({ accounts, isScraping, showModal, handleNewAccountClicked }: ImportersProps) {
   const configStore = useConfigStore();
   return (
     <>
-      {accounts.map((account) => {
+      {accounts.map(account => {
         return (
           <Account
             key={account.id}
             account={account}
-            actionButtons={getActionButtons(
-              showModal,
-              account,
-              isScraping,
-              () => {
-                configStore.openResults(account.companyId);
-              },
-            )}
+            actionButtons={getActionButtons(showModal, account, isScraping, () => {
+              configStore.openResults(account.companyId);
+            })}
           />
         );
       })}
-      {handleNewAccountClicked ? (
-        <NewAccount onClick={handleNewAccountClicked} />
-      ) : null}
+      {handleNewAccountClicked ? <NewAccount onClick={handleNewAccountClicked} /> : null}
     </>
   );
 }
 
 export function getActionButtons(
-  showModal,
+  showModal: (AccountType: AccountType, ModalStatus: ModalStatus) => void,
   account: AccountType,
-  isScraping,
+  isScraping: boolean,
   openResultsHandler?: () => void,
 ): ActionButton[] {
   const logsActionButton = {
@@ -77,8 +65,7 @@ export function getActionButtons(
   const actionButtons: ActionButton[] = [];
 
   const shouldLog =
-    account.status !== AccountStatus.PENDING &&
-    account.status !== AccountStatus.IDLE;
+    account.status !== AccountStatus.PENDING && account.status !== AccountStatus.IDLE;
 
   const openResultsButton = {
     icon: resultsIcon,
